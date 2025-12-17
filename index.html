@@ -1,0 +1,2831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxygen Pellet Gun Repair</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+            padding: 1%;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 1.3rem;
+            color: #00d9ff;
+            text-align: center;
+            padding: 8px;
+            background: rgba(0, 217, 255, 0.1);
+            border-left: 4px solid #00d9ff;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 217, 255, 0.3);
+        }
+        
+        h2 {
+            font-size: 1.1rem;
+            color: #ff6b35;
+            margin: 15px 0 8px 0;
+            padding: 6px;
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 3px solid #ff6b35;
+        }
+        
+        h3 {
+            font-size: 1rem;
+            color: #ffd700;
+            margin: 10px 0 6px 0;
+            padding-left: 8px;
+            border-left: 2px solid #ffd700;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            border: 2px solid #ff0000;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+        
+        .warning-box h3 {
+            color: #fff;
+            border: none;
+            padding: 0;
+            margin-bottom: 6px;
+        }
+        
+        .info-box {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid #00d9ff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border-left: 4px solid #00d9ff;
+        }
+        
+        .tool-box {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid #ffd700;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
+        }
+        
+        ul {
+            margin: 8px 0 8px 20px;
+        }
+        
+        li {
+            margin: 5px 0;
+            color: #b0b0b0;
+        }
+        
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 6px;
+            border-left: 3px solid #00d9ff;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #00d9ff;
+            color: #000;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 8px;
+            line-height: 24px;
+        }
+        
+        .component {
+            background: rgba(255, 107, 53, 0.1);
+            padding: 8px;
+            margin: 6px 0;
+            border-radius: 4px;
+            border-left: 2px solid #ff6b35;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px;
+            border-radius: 8px;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            min-width: 45%;
+            padding: 10px;
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+            border: 1px solid #00d9ff;
+            color: #00d9ff;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .tab-btn:active, .tab-btn.active {
+            background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+            color: #000;
+            transform: scale(0.98);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pressure-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            margin: 8px 0;
+        }
+        
+        .pressure-bar {
+            flex: 1;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .pressure-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff00 0%, #ffff00 50%, #ff0000 100%);
+            transition: width 0.3s;
+        }
+        
+        strong {
+            color: #00d9ff;
+        }
+        
+        .danger {
+            color: #ff4444;
+            font-weight: bold;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffd700;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ Filipino Pneumatic Pellet Gun Repair Guide</h1>
+        
+        <div class="warning-box">
+            <h3>⚠️ CRITICAL SAFETY WARNING</h3>
+            <p><strong>PURE OXYGEN IS HIGHLY DANGEROUS!</strong> Never use pure oxygen as propellant. Oxygen accelerates combustion and can cause explosions. Use compressed air or nitrogen only. Improper use can result in death or severe injury.</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('tools')">Tools</button>
+            <button class="tab-btn" onclick="showTab('disassembly')">Disassembly</button>
+            <button class="tab-btn" onclick="showTab('repair')">Repair</button>
+            <button class="tab-btn" onclick="showTab('assembly')">Assembly</button>
+            <button class="tab-btn" onclick="showTab('troubleshoot')">Troubleshoot</button>
+            <button class="tab-btn" onclick="showTab('safety')">Safety</button>
+            <button class="tab-btn" onclick="showTab('tips')">Pro Tips</button>
+            <button class="tab-btn" onclick="showTab('calculator')">Calculator</button>
+            <button class="tab-btn" onclick="showTab('parts')">Parts List</button>
+            <button class="tab-btn" onclick="showTab('tuning')">Tuning</button>
+            <button class="tab-btn" onclick="showTab('videos')">Video Guide</button>
+            <button class="tab-btn" onclick="showTab('diy')">DIY Projects</button>
+            <button class="tab-btn" onclick="showTab('legal')">Legal Guide</button>
+            <button class="tab-btn" onclick="showTab('maintenance')">Maintenance Log</button>
+            <button class="tab-btn" onclick="showTab('glossary')">Glossary</button>
+        </div>
+
+        <div id="overview" class="tab-content active">
+            <h2>System Overview</h2>
+            
+            <div class="info-box">
+                <h3>Pneumatic System Components</h3>
+                <div class="component">
+                    <strong>1. Pressure Cylinder:</strong> Stores compressed gas (300-3000 PSI)
+                </div>
+                <div class="component">
+                    <strong>2. Regulator Valve:</strong> Controls output pressure to firing chamber
+                </div>
+                <div class="component">
+                    <strong>3. Firing Valve:</strong> Releases gas burst to propel pellet
+                </div>
+                <div class="component">
+                    <strong>4. Barrel & Chamber:</strong> Guides pellet trajectory
+                </div>
+                <div class="component">
+                    <strong>5. Seals & O-rings:</strong> Prevents gas leakage
+                </div>
+            </div>
+
+            <div class="pressure-indicator">
+                <span>Safe Pressure Range:</span>
+                <div class="pressure-bar">
+                    <div class="pressure-fill" style="width: 60%;"></div>
+                </div>
+                <span>0-3000 PSI</span>
+            </div>
+
+            <h3>Common Issues</h3>
+            <ul>
+                <li>Pressure loss - leaking seals/O-rings</li>
+                <li>Weak firing - valve malfunction</li>
+                <li>No firing - blocked valve or empty cylinder</li>
+                <li>Inconsistent power - regulator failure</li>
+                <li>Gas leak - damaged threads or seals</li>
+            </ul>
+        </div>
+
+        <div id="tools" class="tab-content">
+            <h2>Required Tools & Materials</h2>
+            
+            <div class="tool-box">
+                <h3>Essential Tools</h3>
+                <ul>
+                    <li>Allen key set (1.5mm - 6mm)</li>
+                    <li>Adjustable wrench</li>
+                    <li>Small screwdriver set (Phillips & flathead)</li>
+                    <li>Needle-nose pliers</li>
+                    <li>Teflon tape / thread seal tape</li>
+                    <li>O-ring pick tool</li>
+                    <li>Pressure gauge (0-4000 PSI)</li>
+                    <li>Safety glasses</li>
+                </ul>
+            </div>
+
+            <div class="tool-box">
+                <h3>Replacement Parts</h3>
+                <ul>
+                    <li>O-ring assortment (various sizes)</li>
+                    <li>Valve seals (Buna-N or Viton)</li>
+                    <li>Silicone grease (pneumatic grade)</li>
+                    <li>Replacement valve springs</li>
+                    <li>Brass fittings/adapters</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Always depressurize completely before any repair work!</strong></p>
+            </div>
+        </div>
+
+        <div id="disassembly" class="tab-content">
+            <h2>Safe Disassembly Procedure</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Depressurize System</strong>
+                <ul>
+                    <li>Close cylinder valve completely</li>
+                    <li>Fire gun repeatedly until no gas releases</li>
+                    <li>Verify zero pressure with gauge</li>
+                    <li>Wait 5 minutes for pressure equalization</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Remove Cylinder</strong>
+                <ul>
+                    <li>Unscrew cylinder counter-clockwise</li>
+                    <li>Inspect cylinder threads for damage</li>
+                    <li>Check cylinder O-ring condition</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Access Valve Assembly</strong>
+                <ul>
+                    <li>Remove grip panels/screws</li>
+                    <li>Locate valve housing bolts (usually 2-4)</li>
+                    <li>Carefully remove valve assembly</li>
+                    <li>Note spring orientation and order</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Disassemble Firing Valve</strong>
+                <ul>
+                    <li>Remove valve retaining pin/clip</li>
+                    <li>Extract valve stem carefully</li>
+                    <li>Remove O-rings with pick tool</li>
+                    <li>Inspect all sealing surfaces</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Photo Tip:</strong> Take photos at each step to remember assembly order</p>
+            </div>
+        </div>
+
+        <div id="repair" class="tab-content">
+            <h2>Repair Procedures</h2>
+
+            <h3>Seal & O-ring Replacement</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Inspect O-rings</strong>
+                <ul>
+                    <li>Look for cracks, flattening, or hardening</li>
+                    <li>Check for proper size and thickness</li>
+                    <li>Replace if any damage visible</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Install New O-rings</strong>
+                <ul>
+                    <li>Clean grooves thoroughly</li>
+                    <li>Apply thin layer of silicone grease</li>
+                    <li>Stretch O-ring gently into groove</li>
+                    <li>Ensure O-ring seats properly (no twisting)</li>
+                </ul>
+            </div>
+
+            <h3>Valve Repair</h3>
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Clean Valve Components</strong>
+                <ul>
+                    <li>Use isopropyl alcohol or degreaser</li>
+                    <li>Remove all dirt and old lubricant</li>
+                    <li>Check valve seat for scratches/pitting</li>
+                    <li>Polish minor imperfections with fine sandpaper (1000+ grit)</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Replace Springs if Weak</strong>
+                <ul>
+                    <li>Compare spring length to new spring</li>
+                    <li>Test spring tension by compression</li>
+                    <li>Install replacement if worn/compressed</li>
+                </ul>
+            </div>
+
+            <h3>Thread Seal Repair</h3>
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Reseal Threaded Connections</strong>
+                <ul>
+                    <li>Clean threads with wire brush</li>
+                    <li>Wrap Teflon tape clockwise (3-5 wraps)</li>
+                    <li>Apply thread sealant for high-pressure fittings</li>
+                    <li>Hand-tighten, then wrench 1-1.5 turns</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <p><strong>Over-tightening can crack brass fittings!</strong> Tighten until snug, not maximum force.</p>
+            </div>
+        </div>
+
+        <div id="assembly" class="tab-content">
+            <h2>Reassembly Procedure</h2>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Lubricate Moving Parts</strong>
+                <ul>
+                    <li>Apply silicone grease to O-rings</li>
+                    <li>Light coat on valve stem</li>
+                    <li>Avoid excess - can attract dirt</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Reassemble Valve</strong>
+                <ul>
+                    <li>Insert valve stem with O-rings</li>
+                    <li>Install spring in correct orientation</li>
+                    <li>Secure retaining pin/clip</li>
+                    <li>Check valve moves freely</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Install Valve Assembly</strong>
+                <ul>
+                    <li>Align valve housing carefully</li>
+                    <li>Tighten bolts in cross pattern</li>
+                    <li>Torque evenly - don't over-tighten</li>
+                    <li>Reinstall grip panels</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Attach Cylinder</strong>
+                <ul>
+                    <li>Check cylinder O-ring lubrication</li>
+                    <li>Thread on clockwise - hand tight</li>
+                    <li>Use wrench for final 1/4 turn only</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Pressure Test</strong>
+                <ul>
+                    <li>Fill to low pressure first (500 PSI)</li>
+                    <li>Check for leaks with soapy water</li>
+                    <li>Listen for hissing sounds</li>
+                    <li>If no leaks, increase to normal pressure</li>
+                    <li>Let sit 10 minutes and recheck</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Leak Detection:</strong> Spray soapy water on connections. Bubbles indicate gas leak.</p>
+            </div>
+        </div>
+
+        <div id="troubleshoot" class="tab-content">
+            <h2>Troubleshooting Guide</h2>
+
+            <h3>Problem: Gun Won't Fire</h3>
+            <ul>
+                <li><strong>Check:</strong> Cylinder pressure - refill if empty</li>
+                <li><strong>Check:</strong> Valve blockage - clean valve passage</li>
+                <li><strong>Check:</strong> Trigger mechanism - ensure proper engagement</li>
+                <li><strong>Check:</strong> Safety engaged - disengage safety</li>
+            </ul>
+
+            <h3>Problem: Weak Power/Velocity</h3>
+            <ul>
+                <li><strong>Check:</strong> Pressure too low - increase regulator setting</li>
+                <li><strong>Check:</strong> Worn valve seal - replace O-rings</li>
+                <li><strong>Check:</strong> Barrel obstruction - clean barrel</li>
+                <li><strong>Check:</strong> Weak valve spring - replace spring</li>
+            </ul>
+
+            <h3>Problem: Continuous Gas Leak</h3>
+            <ul>
+                <li><strong>Check:</strong> Damaged O-rings - replace all seals</li>
+                <li><strong>Check:</strong> Valve not seating - clean valve face</li>
+                <li><strong>Check:</strong> Cross-threaded fitting - reseal threads</li>
+                <li><strong>Check:</strong> Cracked cylinder - replace cylinder</li>
+            </ul>
+
+            <h3>Problem: Inconsistent Shots</h3>
+            <ul>
+                <li><strong>Check:</strong> Regulator malfunction - rebuild regulator</li>
+                <li><strong>Check:</strong> Partial blockage - flush system</li>
+                <li><strong>Check:</strong> Temperature variation - allow pressure equalization</li>
+                <li><strong>Check:</strong> Contaminated gas - use clean air source</li>
+            </ul>
+
+            <div class="warning-box">
+                <h3>When to Seek Professional Help</h3>
+                <ul>
+                    <li>Cracked pressure vessel/cylinder</li>
+                    <li>Damaged barrel rifling</li>
+                    <li>Stripped threads on critical parts</li>
+                    <li>Persistent leaks after multiple repairs</li>
+                    <li>Any safety mechanism failure</li>
+                </ul>
+            </div>
+
+            <h3>Maintenance Schedule</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>After each use:</strong> Wipe down exterior, check for leaks</li>
+                    <li><strong>Every 500 shots:</strong> Clean barrel, inspect seals</li>
+                    <li><strong>Every 6 months:</strong> Full disassembly, replace O-rings</li>
+                    <li><strong>Annually:</strong> Complete valve rebuild, pressure test</li>
+                </ul>
+            </div>
+
+            <h3>Quick Reference: Pressure Settings</h3>
+            <div class="tool-box">
+                <ul>
+                    <li><strong>Target Shooting:</strong> 800-1200 PSI</li>
+                    <li><strong>Hunting Small Game:</strong> 1500-2000 PSI</li>
+                    <li><strong>Maximum Safe:</strong> 3000 PSI (check gun rating)</li>
+                    <li><strong>Testing/Break-in:</strong> 500-800 PSI</li>
+                </ul>
+            </div>
+
+            <h3>O-ring Size Chart</h3>
+            <div class="component">
+                <strong>Common Sizes:</strong>
+                <ul>
+                    <li>Cylinder: 014 (11mm x 2mm)</li>
+                    <li>Valve stem: 010 (10mm x 1.5mm)</li>
+                    <li>Fill nipple: 006 (6mm x 1mm)</li>
+                    <li>Regulator: 012 (12mm x 2mm)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="safety" class="tab-content">
+            <h2>🛡️ Safety Guidelines</h2>
+
+            <div class="warning-box">
+                <h3>NEVER Use Pure Oxygen</h3>
+                <p><strong>Why oxygen is deadly as propellant:</strong></p>
+                <ul>
+                    <li>Oxygen supports combustion - any spark = explosion</li>
+                    <li>Oils and greases ignite spontaneously with O₂</li>
+                    <li>Metal parts can combust in pure oxygen</li>
+                    <li>Use ONLY compressed air or nitrogen</li>
+                </ul>
+            </div>
+
+            <h3>Personal Protective Equipment</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Safety glasses:</strong> ALWAYS wear when working</li>
+                    <li><strong>Gloves:</strong> Protect from sharp edges and lubricants</li>
+                    <li><strong>Ear protection:</strong> For high-pressure testing</li>
+                    <li><strong>Ventilation:</strong> Work in well-ventilated area</li>
+                </ul>
+            </div>
+
+            <h3>Storage Safety</h3>
+            <ul>
+                <li>Store gun unloaded and depressurized</li>
+                <li>Keep cylinders in cool, dry location (below 50°C)</li>
+                <li>Away from heat sources, flames, direct sunlight</li>
+                <li>Store upright, secured to prevent falling</li>
+                <li>Keep out of reach of children</li>
+                <li>Lock in safe or use trigger lock</li>
+            </ul>
+
+            <h3>Pressure Safety Rules</h3>
+            <div class="tool-box">
+                <ul>
+                    <li><strong>Never exceed:</strong> Gun's maximum rated PSI</li>
+                    <li><strong>Depressurize before:</strong> Any maintenance work</li>
+                    <li><strong>Pressure test:</strong> Point gun in safe direction</li>
+                    <li><strong>Leak check:</strong> Use soapy water, never open flame</li>
+                    <li><strong>Gradual filling:</strong> Fill slowly to prevent shock</li>
+                </ul>
+            </div>
+
+            <h3>Emergency Procedures</h3>
+            <div class="warning-box">
+                <h3>If Gas Leak Occurs:</h3>
+                <ul>
+                    <li>Immediately close cylinder valve</li>
+                    <li>Move to well-ventilated area</li>
+                    <li>Point gun in safe direction</li>
+                    <li>Release remaining pressure by firing</li>
+                    <li>Do not attempt repair until fully depressurized</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>If Cylinder Damaged:</h3>
+                <ul>
+                    <li>Do NOT attempt to refill damaged cylinder</li>
+                    <li>Slowly release pressure outdoors</li>
+                    <li>Dispose according to local regulations</li>
+                    <li>Never weld, drill, or modify pressure vessels</li>
+                </ul>
+            </div>
+
+            <h3>Legal Reminders</h3>
+            <div class="info-box">
+                <p><strong>Philippines regulations:</strong></p>
+                <ul>
+                    <li>Check local laws regarding air gun ownership</li>
+                    <li>May require license depending on power level</li>
+                    <li>Discharge only in authorized areas</li>
+                    <li>Transport in secure case</li>
+                    <li>Follow barangay and city ordinances</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tips" class="tab-content">
+            <h2>💡 Professional Tips & Tricks</h2>
+
+            <h3>Extending O-ring Life</h3>
+            <div class="step">
+                <strong>Lubrication Technique:</strong>
+                <ul>
+                    <li>Use ONLY silicone-based grease (petroleum breaks down rubber)</li>
+                    <li>Apply thin, even coat - excess attracts dirt</li>
+                    <li>Reapply every 3-6 months or 1000 shots</li>
+                    <li>Store spare O-rings in cool, dark place</li>
+                </ul>
+            </div>
+
+            <h3>Improving Accuracy</h3>
+            <div class="info-box">
+                <ul>
+                    <li><strong>Barrel cleaning:</strong> Clean every 200-300 shots</li>
+                    <li><strong>Consistent pressure:</strong> Use regulator for uniform power</li>
+                    <li><strong>Pellet quality:</strong> Use consistent, quality pellets</li>
+                    <li><strong>Barrel crown:</strong> Never damage muzzle edge</li>
+                    <li><strong>Break-in period:</strong> First 100-200 shots settles seals</li>
+                </ul>
+            </div>
+
+            <h3>Cost-Saving Tips</h3>
+            <div class="tool-box">
+                <ul>
+                    <li><strong>Buy O-rings in bulk:</strong> Assortment kits save money</li>
+                    <li><strong>Prevent damage:</strong> Regular maintenance cheaper than repairs</li>
+                    <li><strong>Refill cylinders:</strong> Use paintball/scuba shops</li>
+                    <li><strong>DIY repairs:</strong> Learn to fix common issues yourself</li>
+                    <li><strong>Quality parts:</strong> Cheap seals fail faster</li>
+                </ul>
+            </div>
+
+            <h3>Performance Modifications</h3>
+            <div class="component">
+                <strong>Safe Upgrades:</strong>
+                <ul>
+                    <li><strong>Barrel polish:</strong> Smooth bore increases velocity</li>
+                    <li><strong>Valve spring:</strong> Stiffer spring = more power (check rating)</li>
+                    <li><strong>Regulator upgrade:</strong> Better consistency</li>
+                    <li><strong>Larger cylinder:</strong> More shots per fill</li>
+                </ul>
+                <p class="danger">⚠️ Never modify beyond manufacturer specs!</p>
+            </div>
+
+            <h3>Troubleshooting Short Cuts</h3>
+            <div class="step">
+                <strong>Quick Diagnostics:</strong>
+                <ul>
+                    <li><strong>Listen test:</strong> Hissing = leak location</li>
+                    <li><strong>Soap test:</strong> Bubbles show exact leak point</li>
+                    <li><strong>Temperature test:</strong> Cold spots indicate gas expansion</li>
+                    <li><strong>Resistance test:</strong> Valve should move smoothly</li>
+                </ul>
+            </div>
+
+            <h3>Filipino Workshop Hacks</h3>
+            <div class="info-box">
+                <p><strong>Local solutions:</strong></p>
+                <ul>
+                    <li>Hardware store O-rings work if exact match found</li>
+                    <li>Use dental pick for O-ring removal</li>
+                    <li>Baby oil as temporary lubricant (short-term only)</li>
+                    <li>Bicycle pump adapters for emergency filling</li>
+                    <li>Sewing machine oil for non-pressure parts</li>
+                </ul>
+                <p><strong>Note:</strong> Always prefer proper pneumatic parts when available</p>
+            </div>
+
+            <h3>Record Keeping</h3>
+            <div class="tool-box">
+                <p><strong>Track your maintenance:</strong></p>
+                <ul>
+                    <li>Date of last O-ring replacement</li>
+                    <li>Shot count (helps predict wear)</li>
+                    <li>Pressure settings used</li>
+                    <li>Parts replaced and costs</li>
+                    <li>Performance issues and solutions</li>
+                </ul>
+                <p>Good records help predict future maintenance needs</p>
+            </div>
+
+            <h3>Weather Considerations</h3>
+            <div class="component">
+                <strong>Philippines Climate Tips:</strong>
+                <ul>
+                    <li><strong>High humidity:</strong> Dry gun after each use</li>
+                    <li><strong>Heat:</strong> Pressure increases - adjust accordingly</li>
+                    <li><strong>Rainy season:</strong> Check for moisture in cylinder</li>
+                    <li><strong>Salt air (coastal):</strong> More frequent cleaning needed</li>
+                    <li><strong>Storage:</strong> Use desiccant packs in gun case</li>
+                </ul>
+            </div>
+
+            <h3>Advanced Techniques</h3>
+            <div class="step">
+                <strong>Pressure Tuning for Power:</strong>
+                <ul>
+                    <li>Start at low pressure (500 PSI)</li>
+                    <li>Increase in 200 PSI increments</li>
+                    <li>Test velocity with each change</li>
+                    <li>Find optimal pressure for your pellet weight</li>
+                    <li>Document sweet spot for consistency</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Pro Tip:</strong> Keep a "emergency repair kit" with common O-rings, Teflon tape, Allen keys, and small screwdriver. Store in gun case for field repairs.</p>
+            </div>
+        </div>
+
+        <div id="calculator" class="tab-content">
+            <h2>⚙️ Repair Calculator & Tools</h2>
+
+            <h3>Velocity Calculator</h3>
+            <div class="tool-box">
+                <p>Calculate pellet velocity based on pressure:</p>
+                <label>Pressure (PSI):</label>
+                <input type="number" id="pressureInput" value="1500" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <label>Pellet Weight (grains):</label>
+                <input type="number" id="pelletWeight" value="14.3" step="0.1" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <button onclick="calculateVelocity()" style="width:100%; padding:12px; background:linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Calculate Velocity</button>
+                <div id="velocityResult" style="margin-top:10px; padding:10px; background:rgba(0,217,255,0.1); border-radius:6px; display:none;"></div>
+            </div>
+
+            <h3>Shots Per Fill Calculator</h3>
+            <div class="tool-box">
+                <p>Estimate shots remaining in cylinder:</p>
+                <label>Cylinder Volume (cc):</label>
+                <input type="number" id="cylinderVolume" value="200" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <label>Fill Pressure (PSI):</label>
+                <input type="number" id="fillPressure" value="3000" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <label>Shot Pressure (PSI):</label>
+                <input type="number" id="shotPressure" value="800" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <button onclick="calculateShots()" style="width:100%; padding:12px; background:linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Calculate Shots</button>
+                <div id="shotsResult" style="margin-top:10px; padding:10px; background:rgba(0,217,255,0.1); border-radius:6px; display:none;"></div>
+            </div>
+
+            <h3>Energy Calculator (Foot-Pounds)</h3>
+            <div class="tool-box">
+                <p>Calculate pellet energy:</p>
+                <label>Velocity (FPS):</label>
+                <input type="number" id="velocityFPS" value="800" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <label>Pellet Weight (grains):</label>
+                <input type="number" id="energyWeight" value="14.3" step="0.1" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <button onclick="calculateEnergy()" style="width:100%; padding:12px; background:linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Calculate Energy</button>
+                <div id="energyResult" style="margin-top:10px; padding:10px; background:rgba(0,217,255,0.1); border-radius:6px; display:none;"></div>
+            </div>
+
+            <h3>Maintenance Timer</h3>
+            <div class="info-box">
+                <p>Track your shot count:</p>
+                <label>Current Shot Count:</label>
+                <input type="number" id="shotCount" value="0" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                <button onclick="addShots(10)" style="width:48%; padding:10px; background:rgba(0,217,255,0.2); border:1px solid #00d9ff; color:#00d9ff; font-weight:bold; border-radius:6px; cursor:pointer; margin:4px 1%;">+10 Shots</button>
+                <button onclick="addShots(50)" style="width:48%; padding:10px; background:rgba(0,217,255,0.2); border:1px solid #00d9ff; color:#00d9ff; font-weight:bold; border-radius:6px; cursor:pointer; margin:4px 1%;">+50 Shots</button>
+                <button onclick="resetShots()" style="width:100%; padding:10px; background:rgba(255,68,68,0.2); border:1px solid #ff4444; color:#ff4444; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Reset Counter</button>
+                <div id="maintenanceAlert" style="margin-top:10px; padding:10px; border-radius:6px;"></div>
+            </div>
+
+            <h3>Cost Tracker</h3>
+            <div class="tool-box">
+                <p>Track repair expenses:</p>
+                <label>Item Description:</label>
+                <input type="text" id="costItem" placeholder="e.g., O-ring set" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                <label>Cost (PHP):</label>
+                <input type="number" id="costAmount" placeholder="0.00" step="0.01" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                <button onclick="addCost()" style="width:100%; padding:12px; background:linear-gradient(135deg, #ffd700 0%, #ccaa00 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Add Expense</button>
+                <div id="costList" style="margin-top:10px;"></div>
+                <div id="totalCost" style="margin-top:10px; padding:10px; background:rgba(255,215,0,0.1); border-radius:6px; font-weight:bold; color:#ffd700;"></div>
+                <button onclick="clearCosts()" style="width:100%; padding:10px; background:rgba(255,68,68,0.2); border:1px solid #ff4444; color:#ff4444; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Clear All</button>
+            </div>
+        </div>
+
+        <div id="parts" class="tab-content">
+            <h2>🔩 Parts Reference Guide</h2>
+
+            <h3>Common Replacement Parts</h3>
+            
+            <div class="component">
+                <strong>O-rings & Seals</strong>
+                <ul>
+                    <li><strong>Buna-N O-rings:</strong> Standard, good for most applications</li>
+                    <li><strong>Viton O-rings:</strong> High temp, chemical resistant (best choice)</li>
+                    <li><strong>EPDM O-rings:</strong> Weather resistant, good for outdoor storage</li>
+                    <li><strong>Typical cost:</strong> ₱20-50 per O-ring, ₱200-400 for sets</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Valve Components</strong>
+                <ul>
+                    <li><strong>Valve stem:</strong> ₱300-800 depending on model</li>
+                    <li><strong>Valve spring:</strong> ₱100-250 (stainless steel preferred)</li>
+                    <li><strong>Valve seat:</strong> ₱200-500 (brass or stainless)</li>
+                    <li><strong>Trigger valve assembly:</strong> ₱800-1,500 complete</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Pressure Regulators</strong>
+                <ul>
+                    <li><strong>Basic regulator:</strong> ₱1,500-3,000</li>
+                    <li><strong>Adjustable regulator:</strong> ₱2,500-5,000</li>
+                    <li><strong>High-precision regulator:</strong> ₱5,000-10,000</li>
+                    <li><strong>Regulator rebuild kit:</strong> ₱500-1,200</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Cylinders & Tanks</strong>
+                <ul>
+                    <li><strong>90cc aluminum cylinder:</strong> ₱2,000-3,500</li>
+                    <li><strong>200cc aluminum cylinder:</strong> ₱3,500-5,500</li>
+                    <li><strong>Carbon fiber tank (300cc):</strong> ₱8,000-15,000</li>
+                    <li><strong>Paintball CO2 adapter:</strong> ₱800-1,500</li>
+                </ul>
+            </div>
+
+            <h3>Where to Buy (Philippines)</h3>
+            
+            <div class="info-box">
+                <strong>Online Stores:</strong>
+                <ul>
+                    <li>Lazada / Shopee - Search "airgun parts", "pneumatic seals"</li>
+                    <li>Facebook Groups - "Airgun Philippines", "PCP Airguns PH"</li>
+                    <li>Hardware stores - Generic O-rings, Teflon tape</li>
+                    <li>Industrial supply - Pneumatic fittings, quality seals</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>Metro Manila Shops:</strong>
+                <ul>
+                    <li><strong>Raon/Evangelista:</strong> Electronic parts, small hardware</li>
+                    <li><strong>Bambang:</strong> Hardware tools and supplies</li>
+                    <li><strong>Cartimar:</strong> Some airgun specialty shops</li>
+                    <li><strong>Industrial suppliers:</strong> Pneumatic parts (call ahead)</li>
+                </ul>
+            </div>
+
+            <h3>Refilling Stations</h3>
+            
+            <div class="tool-box">
+                <strong>Where to refill compressed air:</strong>
+                <ul>
+                    <li><strong>Paintball shops:</strong> Most common, ₱50-150 per fill</li>
+                    <li><strong>Dive shops:</strong> High-pressure fills, ₱100-200</li>
+                    <li><strong>Welding supply:</strong> Industrial air, call first</li>
+                    <li><strong>Fire extinguisher service:</strong> Some offer air fills</li>
+                </ul>
+                <p class="danger">⚠️ NEVER fill from oxygen or acetylene tanks!</p>
+            </div>
+
+            <h3>Part Compatibility Chart</h3>
+            
+            <div class="component">
+                <strong>Chinese Generic Models:</strong>
+                <ul>
+                    <li>QB78/79 - Common parts widely available</li>
+                    <li>B3/B4 - Standard seals, easy to find</li>
+                    <li>Most share similar O-ring sizes (010-014)</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Common Brands in PH:</strong>
+                <ul>
+                    <li>Crosman - Some parts available online</li>
+                    <li>Benjamin - Limited local availability</li>
+                    <li>Gamo - Check specialty importers</li>
+                    <li>Diana - European parts, order online</li>
+                </ul>
+            </div>
+
+            <h3>DIY vs Professional Parts</h3>
+            
+            <div class="step">
+                <strong>Can DIY Safely:</strong>
+                <ul>
+                    <li>O-ring replacements (all sizes)</li>
+                    <li>Valve springs (if correct spec)</li>
+                    <li>Standard seals and gaskets</li>
+                    <li>Teflon tape and lubricants</li>
+                    <li>Basic fittings and adapters</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>Requires Original/Professional Parts:</h3>
+                <ul>
+                    <li>Pressure cylinders (NEVER use substitutes)</li>
+                    <li>Regulators (precision components)</li>
+                    <li>Safety valves (critical safety item)</li>
+                    <li>Pressure gauges (must be accurate)</li>
+                    <li>Specialized valve assemblies</li>
+                </ul>
+            </div>
+
+            <h3>Quality Check Guide</h3>
+            
+            <div class="info-box">
+                <p><strong>How to verify good O-rings:</strong></p>
+                <ul>
+                    <li>Smooth surface, no mold marks</li>
+                    <li>Consistent thickness around ring</li>
+                    <li>Flexible but returns to shape</li>
+                    <li>No visible cracks or discoloration</li>
+                    <li>Proper hardness (70-90 durometer for most)</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Red flags for cheap parts:</strong></p>
+                <ul>
+                    <li>Rough surface finish</li>
+                    <li>Inconsistent dimensions</li>
+                    <li>Strong chemical smell</li>
+                    <li>Very soft or very hard rubber</li>
+                    <li>No specifications provided</li>
+                </ul>
+            </div>
+
+            <h3>Bulk Buying Guide</h3>
+            
+            <div class="tool-box">
+                <strong>Save money with bulk purchases:</strong>
+                <ul>
+                    <li><strong>O-ring kits:</strong> 50-100 pcs assorted = ₱500-1,000</li>
+                    <li><strong>Teflon tape:</strong> 10 rolls = ₱200-300</li>
+                    <li><strong>Silicone grease:</strong> Large tube lasts years = ₱300-500</li>
+                    <li><strong>Allen key sets:</strong> Complete set = ₱250-600</li>
+                </ul>
+                <p>Share with other airgun owners to split costs!</p>
+            </div>
+
+            <h3>Emergency Substitutes</h3>
+            
+            <div class="component">
+                <strong>Temporary fixes only:</strong>
+                <ul>
+                    <li><strong>Plumbing O-rings:</strong> If exact size match (measure carefully)</li>
+                    <li><strong>Bicycle valve parts:</strong> Some Presta valve O-rings work</li>
+                    <li><strong>Automotive vacuum line:</strong> Can cut custom gaskets</li>
+                    <li><strong>Watch/jewelry O-rings:</strong> For very small seals</li>
+                </ul>
+                <p class="danger">⚠️ Replace with proper parts ASAP!</p>
+            </div>
+        </div>
+
+        <div id="tuning" class="tab-content">
+            <h2>🎯 Performance Tuning Guide</h2>
+
+            <div class="warning-box">
+                <h3>⚠️ Tuning Safety Warning</h3>
+                <p>Never exceed manufacturer's maximum pressure rating. Over-tuning can cause catastrophic failure, injury, or death. Test in safe area with protective equipment.</p>
+            </div>
+
+            <h3>Barrel Tuning</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Barrel Cleaning Method</strong>
+                <ul>
+                    <li>Use cleaning rod with cotton patches</li>
+                    <li>Apply bore cleaner or gun oil</li>
+                    <li>Push patches through (don't pull back)</li>
+                    <li>Repeat until patches come out clean</li>
+                    <li>Final dry patch to remove excess oil</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Barrel Polish (Advanced)</strong>
+                <ul>
+                    <li>Use JB Bore Paste or similar</li>
+                    <li>Apply thin layer on felt pellet</li>
+                    <li>Push through barrel 10-20 times</li>
+                    <li>Clean thoroughly after polishing</li>
+                    <li>Test fire - should see velocity increase</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Expected Results:</strong> Polished barrel can increase velocity 20-50 FPS and improve consistency</p>
+            </div>
+
+            <h3>Valve Tuning</h3>
+
+            <div class="component">
+                <strong>Spring Modifications:</strong>
+                <ul>
+                    <li><strong>Lighter spring:</strong> Less force, faster cycling, lower power</li>
+                    <li><strong>Heavier spring:</strong> More force, higher power, slower cycling</li>
+                    <li><strong>Preload adjustment:</strong> Add washers to increase tension</li>
+                    <li><strong>Custom cut:</strong> Remove coils to reduce length (test carefully)</li>
+                </ul>
+            </div>
+
+            <div class="tool-box">
+                <strong>Valve Port Enlargement (Expert Only):</strong>
+                <ul>
+                    <li>Increases air flow to chamber</li>
+                    <li>Can boost power 10-25%</li>
+                    <li>Requires drilling/reaming skills</li>
+                    <li>Irreversible modification</li>
+                    <li>Risk of ruining valve body</li>
+                </ul>
+                <p class="danger">⚠️ Only attempt if experienced with machining!</p>
+            </div>
+
+            <h3>Regulator Tuning</h3>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Adjustable Regulator Setup</strong>
+                <ul>
+                    <li>Start at lowest pressure setting</li>
+                    <li>Fire 10 shots, measure velocity</li>
+                    <li>Increase pressure by 100 PSI</li>
+                    <li>Repeat until desired velocity reached</li>
+                    <li>Fine-tune in 25 PSI increments</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Sweet Spot Finding:</strong> Look for pressure where velocity is highest with minimal shot-to-shot variation (standard deviation under 15 FPS)</p>
+            </div>
+
+            <h3>Pellet Selection for Performance</h3>
+
+            <div class="component">
+                <strong>Light Pellets (7-10 grains):</strong>
+                <ul>
+                    <li>Higher velocity (900-1100+ FPS)</li>
+                    <li>Flatter trajectory</li>
+                    <li>Less accuracy at long range</li>
+                    <li>Better for close-range target shooting</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Medium Pellets (12-16 grains):</strong>
+                <ul>
+                    <li>Balanced velocity (750-900 FPS)</li>
+                    <li>Best all-around performance</li>
+                    <li>Good accuracy and energy</li>
+                    <li>Recommended for most uses</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Heavy Pellets (18-25+ grains):</strong>
+                <ul>
+                    <li>Lower velocity (600-750 FPS)</li>
+                    <li>Maximum energy transfer</li>
+                    <li>Best long-range accuracy</li>
+                    <li>Ideal for hunting</li>
+                </ul>
+            </div>
+
+            <h3>Power Adjustment Chart</h3>
+
+            <div class="tool-box">
+                <table style="width:100%; border-collapse:collapse; margin:10px 0;">
+                    <tr style="background:rgba(0,217,255,0.2); font-weight:bold;">
+                        <td style="padding:8px; border:1px solid #00d9ff;">Modification</td>
+                        <td style="padding:8px; border:1px solid #00d9ff;">Power Change</td>
+                        <td style="padding:8px; border:1px solid #00d9ff;">Difficulty</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Increase pressure</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">+10-30%</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Easy</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Polish barrel</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">+3-8%</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Easy</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Heavier spring</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">+5-15%</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Medium</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Port enlargement</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">+10-25%</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Expert</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Lighter pellet</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">+20-40%*</td>
+                        <td style="padding:8px; border:1px solid rgba(255,255,255,0.1);">Easy</td>
+                    </tr>
+                </table>
+                <p style="font-size:0.9rem; margin-top:5px;">*Velocity increase, not energy increase</p>
+            </div>
+
+            <h3>Accuracy Tuning</h3>
+
+            <div class="step">
+                <strong>Consistency Testing Method:</strong>
+                <ul>
+                    <li>Fire 10-shot groups at 10 meters</li>
+                    <li>Measure group size (distance between furthest holes)</li>
+                    <li>Chronograph all shots, calculate average & std deviation</li>
+                    <li>Goal: Under 1-inch groups, under 15 FPS variation</li>
+                    <li>Adjust one variable at a time</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>Variables Affecting Accuracy:</strong>
+                <ul>
+                    <li>Pellet fit in barrel (snug but not tight)</li>
+                    <li>Pressure consistency (good regulator)</li>
+                    <li>Barrel crown condition (critical)</li>
+                    <li>Trigger pull (clean break, no creep)</li>
+                    <li>Stock fit and stability</li>
+                </ul>
+            </div>
+
+            <h3>Advanced Modifications</h3>
+
+            <div class="component">
+                <strong>Harmonic Barrel Tuning:</strong>
+                <ul>
+                    <li>Add barrel weight/dampener</li>
+                    <li>Reduces barrel whip during firing</li>
+                    <li>Can tighten groups 20-30%</li>
+                    <li>Experiment with weight position</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Trigger Job:</strong>
+                <ul>
+                    <li>Polish sear contact surfaces</li>
+                    <li>Adjust trigger spring tension</li>
+                    <li>Reduce pull weight (stay safe, 1-2 lbs minimum)</li>
+                    <li>Eliminate creep and overtravel</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Custom Cylinder Upgrade:</strong>
+                <ul>
+                    <li>Larger volume = more shots per fill</li>
+                    <li>Carbon fiber = lighter + higher pressure rating</li>
+                    <li>Ensure proper threading compatibility</li>
+                    <li>May need adapter bushing</li>
+                </ul>
+            </div>
+
+            <h3>Testing & Documentation</h3>
+
+            <div class="tool-box">
+                <strong>Keep Performance Log:</strong>
+                <ul>
+                    <li><strong>Before mods:</strong> Velocity, accuracy, shot count</li>
+                    <li><strong>After each change:</strong> Record improvements/issues</li>
+                    <li><strong>Best settings:</strong> Note optimal pressure/pellet combo</li>
+                    <li><strong>Problems:</strong> Document failures to avoid repeating</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>When to Stop Tuning</h3>
+                <ul>
+                    <li>Reached desired performance level</li>
+                    <li>Reliability starts decreasing</li>
+                    <li>Parts showing excessive wear</li>
+                    <li>Approaching safety limits</li>
+                    <li>Accuracy gets worse despite changes</li>
+                </ul>
+                <p><strong>Remember:</strong> Reliability > Maximum Power</p>
+            </div>
+        </div>
+
+        <div id="videos" class="tab-content">
+            <h2>📹 Visual Repair Guide</h2>
+
+            <div class="info-box">
+                <h3>Recommended Search Terms (YouTube/Facebook)</h3>
+                <p>Since we can't embed videos, search for these terms to find helpful tutorials:</p>
+            </div>
+
+            <h3>Disassembly Videos to Search:</h3>
+            <div class="component">
+                <ul>
+                    <li>"PCP air rifle valve disassembly"</li>
+                    <li>"Pneumatic pellet gun teardown"</li>
+                    <li>"Air gun valve rebuild tutorial"</li>
+                    <li>"PCP airgun maintenance"</li>
+                    <li>"Chinese air rifle repair" (for QB models)</li>
+                </ul>
+            </div>
+
+            <h3>O-ring Replacement Videos:</h3>
+            <div class="component">
+                <ul>
+                    <li>"Air rifle O-ring replacement"</li>
+                    <li>"PCP gun seal replacement"</li>
+                    <li>"Pneumatic valve O-ring change"</li>
+                    <li>"Air gun leak repair"</li>
+                </ul>
+            </div>
+
+            <h3>Tuning & Modification Videos:</h3>
+            <div class="component">
+                <ul>
+                    <li>"Air rifle power tuning"</li>
+                    <li>"PCP gun regulator adjustment"</li>
+                    <li>"Air rifle barrel cleaning"</li>
+                    <li>"Pellet gun accuracy tuning"</li>
+                    <li>"Air rifle trigger job"</li>
+                </ul>
+            </div>
+
+            <h3>Filipino Airgun Communities:</h3>
+            <div class="tool-box">
+                <strong>Facebook Groups (Search these):</strong>
+                <ul>
+                    <li>"Airgun Philippines"</li>
+                    <li>"PCP Airguns PH"</li>
+                    <li>"Philippine Airgunners"</li>
+                    <li>"Air Rifle Enthusiasts Philippines"</li>
+                    <li>"Baril Hangin Pilipinas"</li>
+                </ul>
+                <p>Great places to ask questions and see real repairs from Filipino shooters!</p>
+            </div>
+
+            <h3>Step-by-Step Photo Guide</h3>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Recommended Photo Documentation</strong>
+                <p>When doing repairs, take photos at these critical points:</p>
+                <ul>
+                    <li><strong>Before starting:</strong> Overall gun condition</li>
+                    <li><strong>Each disassembly step:</strong> How parts fit together</li>
+                    <li><strong>Spring orientation:</strong> Which way springs face</li>
+                    <li><strong>O-ring locations:</strong> Where each seal goes</li>
+                    <li><strong>Screw locations:</strong> Different lengths/types</li>
+                    <li><strong>Wire/pin positions:</strong> Easy to forget placement</li>
+                </ul>
+            </div>
+
+            <h3>Visual Inspection Checklist</h3>
+
+            <div class="info-box">
+                <strong>What to Look For (with pictures if possible):</strong>
+                
+                <div style="margin:10px 0; padding:10px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                    <strong>✓ Good O-ring:</strong>
+                    <ul>
+                        <li>Round cross-section</li>
+                        <li>Smooth, glossy surface</li>
+                        <li>Flexible and elastic</li>
+                        <li>Uniform color (usually black)</li>
+                    </ul>
+                </div>
+
+                <div style="margin:10px 0; padding:10px; background:rgba(255,68,68,0.2); border-radius:6px;">
+                    <strong>✗ Bad O-ring:</strong>
+                    <ul>
+                        <li>Flattened or oval shape</li>
+                        <li>Cracks or splits visible</li>
+                        <li>Hard or brittle texture</li>
+                        <li>Discolored or faded</li>
+                    </ul>
+                </div>
+
+                <div style="margin:10px 0; padding:10px; background:rgba(0,0,0,0.3); border-radius:6px;">
+                    <strong>✓ Good Valve Seat:</strong>
+                    <ul>
+                        <li>Smooth, mirror-like surface</li>
+                        <li>No scratches or pitting</li>
+                        <li>Clean circular edge</li>
+                    </ul>
+                </div>
+
+                <div style="margin:10px 0; padding:10px; background:rgba(255,68,68,0.2); border-radius:6px;">
+                    <strong>✗ Bad Valve Seat:</strong>
+                    <ul>
+                        <li>Scratches across sealing surface</li>
+                        <li>Pitting or corrosion</li>
+                        <li>Uneven wear patterns</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>Diagnostic Flow Chart</h3>
+
+            <div class="tool-box">
+                <strong>Problem → Check → Solution</strong>
+                
+                <div style="margin:8px 0; padding:8px; background:rgba(0,0,0,0.2); border-left:3px solid #00d9ff;">
+                    <strong>Won't Fire</strong><br>
+                    ↓ Check pressure gauge<br>
+                    → Empty? <span style="color:#ffd700;">Refill cylinder</span><br>
+                    → Full? Check valve<br>
+                    &nbsp;&nbsp;&nbsp;→ Stuck valve? <span style="color:#ffd700;">Disassemble & clean</span><br>
+                    &nbsp;&nbsp;&nbsp;→ Blocked port? <span style="color:#ffd700;">Clear obstruction</span>
+                </div>
+
+                <div style="margin:8px 0; padding:8px; background:rgba(0,0,0,0.2); border-left:3px solid #ff6b35;">
+                    <strong>Gas Leak</strong><br>
+                    ↓ Spray soapy water<br>
+                    → Bubbles at cylinder? <span style="color:#ffd700;">Replace cylinder O-ring</span><br>
+                    → Bubbles at valve? <span style="color:#ffd700;">Replace valve seals</span><br>
+                    → Bubbles at fitting? <span style="color:#ffd700;">Tighten or reseal threads</span>
+                </div>
+
+                <div style="margin:8px 0; padding:8px; background:rgba(0,0,0,0.2); border-left:3px solid #ffd700;">
+                    <strong>Weak Power</strong><br>
+                    ↓ Chronograph velocity<br>
+                    → Low velocity? Check pressure<br>
+                    &nbsp;&nbsp;&nbsp;→ Pressure low? <span style="color:#ffd700;">Increase regulator setting</span><br>
+                    &nbsp;&nbsp;&nbsp;→ Pressure OK? <span style="color:#ffd700;">Check valve seals</span><br>
+                    → Inconsistent? <span style="color:#ffd700;">Rebuild regulator</span>
+                </div>
+            </div>
+
+            <h3>Assembly Animation Reference</h3>
+
+            <div class="step">
+                <strong>Mental Visualization Tips:</strong>
+                <p>Before reassembly, visualize how air flows:</p>
+                <ol style="margin:10px 0 10px 20px;">
+                    <li>Cylinder → Valve → Chamber → Barrel</li>
+                    <li>Each O-ring blocks one junction</li>
+                    <li>Spring pushes valve closed (seals when not firing)</li>
+                    <li>Trigger releases valve (allows air burst)</li>
+                    <li>Regulator limits pressure (before valve)</li>
+                </ol>
+                <p>Understanding the flow helps diagnose where leaks occur!</p>
+            </div>
+
+            <h3>Common Mistakes (Video Search Terms):</h3>
+
+            <div class="warning-box">
+                <strong>Learn from others' errors - search:</strong>
+                <ul>
+                    <li>"Air rifle repair mistakes"</li>
+                    <li>"PCP gun common problems"</li>
+                    <li>"What not to do air gun maintenance"</li>
+                    <li>"Air rifle failures explained"</li>
+                </ul>
+            </div>
+
+            <h3>Recommended YouTube Channels:</h3>
+
+            <div class="info-box">
+                <p>Search for these reputable channels:</p>
+                <ul>
+                    <li><strong>AEAC</strong> (American Airguns Channel) - Reviews & tutorials</li>
+                    <li><strong>Airgun Depot</strong> - Maintenance guides</li>
+                    <li><strong>Ted's Holdover</strong> - Tuning & testing</li>
+                    <li><strong>Hard Air Magazine</strong> - Technical deep dives</li>
+                    <li><strong>Airgun101</strong> - Beginner-friendly content</li>
+                </ul>
+            </div>
+
+            <h3>Create Your Own Video Log</h3>
+
+            <div class="tool-box">
+                <strong>Document your repairs:</strong>
+                <ul>
+                    <li>Use phone camera to record repairs</li>
+                    <li>Helps remember assembly order</li>
+                    <li>Can review if problems occur</li>
+                    <li>Share with local airgun community</li>
+                    <li>Build your own reference library</li>
+                </ul>
+                <p><strong>Tip:</strong> Record voice notes while filming to explain what you're doing!</p>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Remember:</strong> While videos are helpful, this app has all the text instructions you need to complete repairs. Use videos as supplementary visual reference!</p>
+            </div>
+        </div>
+
+        <div id="diy" class="tab-content">
+            <h2>🔨 DIY Projects & Upgrades</h2>
+
+            <div class="info-box">
+                <h3>Build Your Own Tools & Accessories</h3>
+                <p>Save money with these Filipino-style DIY solutions using local materials</p>
+            </div>
+
+            <h3>DIY Chronograph Stand</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Materials Needed:</strong>
+                <ul>
+                    <li>PVC pipe (1/2 inch, 2 feet) - ₱50</li>
+                    <li>PVC T-joints (2 pcs) - ₱30</li>
+                    <li>Small wood board (6x6 inches) - ₱40</li>
+                    <li>Zip ties or wire - ₱20</li>
+                </ul>
+                <strong>Assembly:</strong>
+                <ul>
+                    <li>Cut PVC into: 2x 8-inch uprights, 2x 4-inch crossbars</li>
+                    <li>Connect uprights to base board with T-joints</li>
+                    <li>Mount chronograph sensors on crossbars</li>
+                    <li>Secure with zip ties</li>
+                    <li><strong>Total cost:</strong> ~₱140 vs ₱800 commercial stand</li>
+                </ul>
+            </div>
+
+            <h3>Homemade Pellet Catcher (Trap)</h3>
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Materials:</strong>
+                <ul>
+                    <li>Cardboard box (large) - Free/₱20</li>
+                    <li>Old towels or rags - Free</li>
+                    <li>Duct tape - ₱50</li>
+                    <li>Target paper - ₱30</li>
+                </ul>
+                <strong>Construction:</strong>
+                <ul>
+                    <li>Layer towels tightly in box (10+ layers)</li>
+                    <li>Tape towels to prevent shifting</li>
+                    <li>Seal box edges with duct tape</li>
+                    <li>Attach target to front</li>
+                    <li>Safe for pellets up to 20 ft-lbs at 10+ meters</li>
+                </ul>
+            </div>
+
+            <h3>DIY Barrel Cleaning Kit</h3>
+            <div class="component">
+                <strong>Using Local Materials:</strong>
+                <ul>
+                    <li><strong>Cleaning rod:</strong> Bike spoke or coat hanger wire</li>
+                    <li><strong>Patches:</strong> Cut from old t-shirt (cotton)</li>
+                    <li><strong>Brush:</strong> Toothbrush bristles bunched together</li>
+                    <li><strong>Storage:</strong> Empty film canister or pill bottle</li>
+                    <li><strong>Cost:</strong> Nearly free vs ₱300-500 commercial kit</li>
+                </ul>
+            </div>
+
+            <h3>Custom Fill Adapter</h3>
+            <div class="tool-box">
+                <strong>Bicycle Pump to Pellet Gun Adapter:</strong>
+                <ul>
+                    <li>Buy Presta-to-Schrader valve adapter (₱80)</li>
+                    <li>Add pressure gauge inline (₱200-300)</li>
+                    <li>Connect to cylinder fill nipple</li>
+                    <li>Use floor pump for manual filling</li>
+                    <li>Good for low-pressure fills (up to 150 PSI)</li>
+                </ul>
+                <p class="danger">⚠️ Manual pumping is slow - 200+ strokes for partial fill</p>
+            </div>
+
+            <h3>DIY Trigger Weight Gauge</h3>
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Simple Method:</strong>
+                <ul>
+                    <li>Use digital luggage scale or kitchen scale</li>
+                    <li>Hook scale to trigger guard</li>
+                    <li>Pull until trigger breaks</li>
+                    <li>Read weight at break point</li>
+                    <li>Should be 2-4 lbs for safety</li>
+                </ul>
+            </div>
+
+            <h3>Homemade Rest/Bench</h3>
+            <div class="component">
+                <strong>Shooting Rest from Household Items:</strong>
+                <ul>
+                    <li><strong>Base:</strong> Wooden board or thick plywood</li>
+                    <li><strong>Front support:</strong> Rolled towel or sandbag</li>
+                    <li><strong>Rear support:</strong> Stack of books (adjustable height)</li>
+                    <li><strong>Alternative:</strong> Fill old socks with rice/sand for sandbags</li>
+                    <li>Stable enough for accuracy testing</li>
+                </ul>
+            </div>
+
+            <h3>DIY Pressure Tester</h3>
+            <div class="warning-box">
+                <strong>Safety-First Leak Testing Setup:</strong>
+                <ul>
+                    <li>Clear plastic bottle filled with soapy water</li>
+                    <li>Spray bottle for application</li>
+                    <li>Bright flashlight for inspection</li>
+                    <li>Mirror (to see hidden areas)</li>
+                    <li><strong>Cost:</strong> ₱100 total vs commercial leak detector</li>
+                </ul>
+            </div>
+
+            <h3>Custom Storage Solutions</h3>
+            
+            <div class="info-box">
+                <strong>O-ring Organizer:</strong>
+                <ul>
+                    <li>Use fishing tackle box or pill organizer</li>
+                    <li>Label compartments by size</li>
+                    <li>Add desiccant packet to prevent moisture</li>
+                    <li>Store in cool, dark place</li>
+                    <li><strong>Cost:</strong> ₱150-250</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong>Tool Roll:</strong>
+                <ul>
+                    <li>Old denim jeans material</li>
+                    <li>Sew pockets for each tool</li>
+                    <li>Add velcro or tie strap</li>
+                    <li>Portable field repair kit</li>
+                    <li><strong>Cost:</strong> Free (upcycled)</li>
+                </ul>
+            </div>
+
+            <h3>Refill Station DIY</h3>
+            
+            <div class="component">
+                <strong>Basic Hand Pump Setup:</strong>
+                <ul>
+                    <li><strong>Pump:</strong> High-pressure bicycle pump (3-stage) - ₱1,500-3,000</li>
+                    <li><strong>Gauge:</strong> 0-4000 PSI gauge - ₱300-500</li>
+                    <li><strong>Adapter:</strong> Universal fill adapter - ₱200-400</li>
+                    <li><strong>Total:</strong> ₱2,000-4,000 for portable fill station</li>
+                    <li>Pays for itself after 20-30 fills vs shop prices</li>
+                </ul>
+            </div>
+
+            <h3>Target Frame Projects</h3>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Portable Target Stand:</strong>
+                <ul>
+                    <li><strong>Frame:</strong> 1x2 inch wood strips</li>
+                    <li><strong>Joints:</strong> L-brackets from hardware store</li>
+                    <li><strong>Clips:</strong> Binder clips to hold paper targets</li>
+                    <li><strong>Feet:</strong> Angle cuts for stability</li>
+                    <li><strong>Cost:</strong> ₱200-350 for 2-foot frame</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Resetting Target (Spinners):</strong>
+                <ul>
+                    <li>Old aluminum cans or plastic bottles</li>
+                    <li>Hang on string or wire</li>
+                    <li>Create pendulum effect when hit</li>
+                    <li>No need to walk downrange</li>
+                    <li><strong>Cost:</strong> Free (recycled materials)</li>
+                </ul>
+            </div>
+
+            <h3>Pellet Recovery Box</h3>
+
+            <div class="tool-box">
+                <strong>Reusable Pellet Catcher:</strong>
+                <ul>
+                    <li>Small plastic bucket or container</li>
+                    <li>Layer: cardboard → rubber mat → towels</li>
+                    <li>Angle slightly upward</li>
+                    <li>Pellets fall to bottom for collection</li>
+                    <li>Melt & recast damaged pellets (advanced)</li>
+                </ul>
+            </div>
+
+            <h3>Weather Protection</h3>
+
+            <div class="component">
+                <strong>DIY Gun Case Lining:</strong>
+                <ul>
+                    <li>Foam pool noodles (cut to fit) - ₱50-80</li>
+                    <li>Egg crate foam (cheaper alternative) - ₱100</li>
+                    <li>Silica gel packets for moisture - ₱30/pack</li>
+                    <li>Line inside hard case or PVC tube</li>
+                    <li>Custom fit for your specific gun</li>
+                </ul>
+            </div>
+
+            <h3>Modification Jigs & Fixtures</h3>
+
+            <div class="step">
+                <strong>Valve Holding Fixture:</strong>
+                <ul>
+                    <li>Two wood blocks with semi-circle cut</li>
+                    <li>Clamp together to hold valve body</li>
+                    <li>Prevents damage while working</li>
+                    <li>Can drill/file without slipping</li>
+                </ul>
+            </div>
+
+            <h3>Testing Equipment DIY</h3>
+
+            <div class="info-box">
+                <strong>Makeshift Chronograph Alternative:</strong>
+                <ul>
+                    <li>Can't fully replace real chronograph</li>
+                    <li>But can measure consistency:</li>
+                    <li>Fire at thick paper at known distance</li>
+                    <li>Measure penetration depth</li>
+                    <li>Consistent depth = consistent velocity</li>
+                    <li>Good for relative comparisons</li>
+                </ul>
+            </div>
+
+            <h3>Cleaning Station Setup</h3>
+
+            <div class="tool-box">
+                <strong>Workspace Organization:</strong>
+                <ul>
+                    <li><strong>Work surface:</strong> Old cutting board or tray</li>
+                    <li><strong>Parts tray:</strong> Ice cube tray or muffin tin</li>
+                    <li><strong>Lighting:</strong> Clip-on LED lamp - ₱150-300</li>
+                    <li><strong>Magnification:</strong> Reading glasses +2.0 or magnifying glass</li>
+                    <li><strong>Container:</strong> Old Tupperware for parts soaking</li>
+                    <li>Total setup: ₱300-500</li>
+                </ul>
+            </div>
+
+            <h3>Community Projects</h3>
+
+            <div class="component">
+                <strong>Group Buy Organization:</strong>
+                <ul>
+                    <li>Coordinate with local airgun group</li>
+                    <li>Bulk order O-rings, springs, seals</li>
+                    <li>Share shipping costs</li>
+                    <li>Save 30-50% vs individual purchases</li>
+                    <li>Build community knowledge base</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <strong>Tool Library:</strong>
+                <ul>
+                    <li>Share specialized tools among friends</li>
+                    <li>Chronograph rotation system</li>
+                    <li>Pressure tester sharing</li>
+                    <li>Everyone benefits without buying everything</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>Safety Reminders for DIY Projects</h3>
+                <ul>
+                    <li>Never DIY pressure vessels or regulators</li>
+                    <li>Always test away from face/body</li>
+                    <li>Start with low pressure when testing</li>
+                    <li>Wear safety glasses for all projects</li>
+                    <li>If unsure, buy commercial - safety first</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="legal" class="tab-content">
+            <h2>⚖️ Legal Guide - Philippines</h2>
+
+            <div class="warning-box">
+                <h3>⚠️ Legal Disclaimer</h3>
+                <p>This information is for educational purposes. Laws change frequently and vary by location. Always verify current regulations with local authorities. This guide is not legal advice.</p>
+            </div>
+
+            <h3>National Regulations (RA 10591)</h3>
+
+            <div class="info-box">
+                <strong>Republic Act 10591 - Comprehensive Firearms and Ammunition Regulation Act</strong>
+                <ul>
+                    <li>Regulates firearms AND "deadly weapons"</li>
+                    <li>Air guns may be considered regulated depending on power</li>
+                    <li>Implemented by Philippine National Police (PNP)</li>
+                    <li>Penalties include fines and imprisonment</li>
+                </ul>
+            </div>
+
+            <h3>Air Gun Classification</h3>
+
+            <div class="component">
+                <strong>Generally NOT Requiring License:</strong>
+                <ul>
+                    <li>Low-power air guns (under 7.5 Joules / 5.5 ft-lbs)</li>
+                    <li>BB guns for recreational use</li>
+                    <li>Toys and replicas clearly marked</li>
+                    <li>Air soft guns (6mm plastic pellets, under limits)</li>
+                </ul>
+                <p><strong>Note:</strong> Even if no license needed, other laws still apply!</p>
+            </div>
+
+            <div class="component">
+                <strong>MAY Require License/Permit:</strong>
+                <ul>
+                    <li>High-power PCP air rifles (over 7.5 Joules)</li>
+                    <li>Air guns capable of causing serious injury</li>
+                    <li>Pellet guns used for hunting</li>
+                    <li>Any air gun modified for increased power</li>
+                </ul>
+                <p class="danger">⚠️ Check with local PNP firearms division!</p>
+            </div>
+
+            <h3>Power Level Guidelines</h3>
+
+            <div class="tool-box">
+                <strong>Reference Thresholds:</strong>
+                <ul>
+                    <li><strong>Under 5.5 ft-lbs:</strong> Generally considered "toys"</li>
+                    <li><strong>5.5-12 ft-lbs:</strong> Gray area - verify locally</li>
+                    <li><strong>Over 12 ft-lbs:</strong> Likely requires permit</li>
+                    <li><strong>Over 20 ft-lbs:</strong> Definitely check regulations</li>
+                </ul>
+                <p><strong>Your gun:</strong> Use calculator tab to check your muzzle energy!</p>
+            </div>
+
+            <h3>Local Ordinances</h3>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Barangay Level:</strong>
+                <ul>
+                    <li>May prohibit discharge within barangay limits</li>
+                    <li>Some barangays require permit for possession</li>
+                    <li>Check with barangay captain/office</li>
+                    <li>Get written permission for shooting areas</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>City/Municipal Level:</strong>
+                <ul>
+                    <li>Cities may have stricter regulations</li>
+                    <li>May prohibit carrying in public places</li>
+                    <li>Some require registration even for low-power</li>
+                    <li>Check city ordinances online or at city hall</li>
+                </ul>
+            </div>
+
+            <h3>Transportation Rules</h3>
+
+            <div class="info-box">
+                <strong>How to Transport Legally:</strong>
+                <ul>
+                    <li><strong>Container:</strong> Enclosed case (not visible)</li>
+                    <li><strong>State:</strong> Unloaded, depressurized</li>
+                    <li><strong>Ammunition:</strong> Separate from gun</li>
+                    <li><strong>Vehicle:</strong> In trunk or locked compartment preferred</li>
+                    <li><strong>Documentation:</strong> Carry proof of ownership</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>What NOT to Do:</h3>
+                <ul>
+                    <li>Carry openly in public</li>
+                    <li>Transport loaded or pressurized</li>
+                    <li>Bring to school, government buildings, malls</li>
+                    <li>Display in vehicle window</li>
+                    <li>Use in residential areas without permission</li>
+                </ul>
+            </div>
+
+            <h3>Where You CAN Use</h3>
+
+            <div class="component">
+                <strong>Legal Shooting Locations:</strong>
+                <ul>
+                    <li><strong>Private property:</strong> With owner's permission</li>
+                    <li><strong>Shooting ranges:</strong> Licensed facilities only</li>
+                    <li><strong>Rural areas:</strong> Where local ordinances allow</li>
+                    <li><strong>Hunting grounds:</strong> If you have proper permits</li>
+                </ul>
+            </div>
+
+            <h3>Where You CANNOT Use</h3>
+
+            <div class="warning-box">
+                <strong>Prohibited Areas:</strong>
+                <ul>
+                    <li>Public streets, parks, plazas</li>
+                    <li>Near schools, churches, hospitals</li>
+                    <li>Residential areas (most barangays)</li>
+                    <li>Government facilities</li>
+                    <li>Commercial establishments</li>
+                    <li>Across property lines into neighbor's land</li>
+                </ul>
+            </div>
+
+            <h3>Hunting Regulations</h3>
+
+            <div class="tool-box">
+                <strong>If Using for Hunting:</strong>
+                <ul>
+                    <li>Check Department of Environment (DENR) rules</li>
+                    <li>Protected species are ALWAYS illegal to hunt</li>
+                    <li>Need Wildlife Gratuitous Permit in some areas</li>
+                    <li>Respect private property and communities</li>
+                    <li>Follow bag limits and seasons</li>
+                </ul>
+            </div>
+
+            <h3>Liability & Responsibility</h3>
+
+            <div class="component">
+                <strong>You Are Responsible For:</strong>
+                <ul>
+                    <li>Ensuring safe backstop at all times</li>
+                    <li>Any damage caused by your pellets</li>
+                    <li>Injuries to people or animals</li>
+                    <li>Following all applicable laws and ordinances</li>
+                    <li>Supervising minors who use your equipment</li>
+                </ul>
+            </div>
+
+            <h3>Interaction with Authorities</h3>
+
+            <div class="info-box">
+                <strong>If Stopped by Police/Security:</strong>
+                <ul>
+                    <li>Be polite and cooperative</li>
+                    <li>Show that gun is unloaded and cased</li>
+                    <li>Explain legitimate purpose (target shooting, etc.)</li>
+                    <li>Show proof of ownership if available</li>
+                    <li>Know your rights but don't be confrontational</li>
+                    <li>If detained, comply and contact lawyer</li>
+                </ul>
+            </div>
+
+            <h3>Getting Proper Documentation</h3>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>License Application (if required):</strong>
+                <ul>
+                    <li>Visit PNP Firearms and Explosives Office</li>
+                    <li>Bring valid ID, proof of address</li>
+                    <li>Fill out application forms</li>
+                    <li>May require drug test, background check</li>
+                    <li>Pay applicable fees</li>
+                    <li>Processing time: varies by location</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Barangay Clearance:</strong>
+                <ul>
+                    <li>Go to barangay hall</li>
+                    <li>Request clearance for air gun possession/use</li>
+                    <li>State purpose (target shooting, pest control)</li>
+                    <li>Small fee (usually ₱50-100)</li>
+                    <li>Keep copy with gun at all times</li>
+                </ul>
+            </div>
+
+            <h3>Insurance Considerations</h3>
+
+            <div class="info-box">
+                <strong>Protecting Yourself:</strong>
+                <ul>
+                    <li>Homeowner's insurance may cover liability</li>
+                    <li>Check if air guns are included in policy</li>
+                    <li>Consider additional liability coverage</li>
+                    <li>Document safe storage and use practices</li>
+                </ul>
+            </div>
+
+            <h3>For Parents/Guardians</h3>
+
+            <div class="component">
+                <strong>Minors Using Air Guns:</strong>
+                <ul>
+                    <li>Adult supervision REQUIRED at all times</li>
+                    <li>Parent/guardian is legally responsible</li>
+                    <li>Teach safety rules before allowing use</li>
+                    <li>Secure storage when not in use</li>
+                    <li>Control access to ammunition/cylinders</li>
+                    <li>Start with low power, close supervision</li>
+                </ul>
+            </div>
+
+            <h3>Penalties for Violations</h3>
+
+            <div class="warning-box">
+                <strong>Potential Consequences:</strong>
+                <ul>
+                    <li><strong>Illegal possession:</strong> Confiscation, fines, jail time</li>
+                    <li><strong>Illegal discharge:</strong> Fines, community service</li>
+                    <li><strong>Causing injury:</strong> Criminal/civil liability</li>
+                    <li><strong>Property damage:</strong> Civil suits for damages</li>
+                    <li><strong>Violation depends on:</strong> Power level, location, intent</li>
+                </ul>
+            </div>
+
+            <h3>Staying Informed</h3>
+
+            <div class="tool-box">
+                <strong>Keep Updated:</strong>
+                <ul>
+                    <li>Join legitimate airgun associations</li>
+                    <li>Follow PNP announcements</li>
+                    <li>Check local government websites</li>
+                    <li>Participate in community meetings</li>
+                    <li>Network with other responsible airgunners</li>
+                </ul>
+            </div>
+
+            <h3>Recommended Contacts</h3>
+
+            <div class="info-box">
+                <strong>For Questions/Clarifications:</strong>
+                <ul>
+                    <li><strong>PNP Firearms Division:</strong> Your regional office</li>
+                    <li><strong>Barangay Office:</strong> Local regulations</li>
+                    <li><strong>City/Municipal Hall:</strong> Local ordinances</li>
+                    <li><strong>DENR:</strong> Wildlife/hunting questions</li>
+                    <li><strong>Legal Counsel:</strong> For specific legal advice</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p><strong>Golden Rule:</strong> When in doubt, ask first. Better to get permission than face legal consequences. Responsible ownership protects the hobby for everyone!</p>
+            </div>
+        </div>
+
+        <div id="maintenance" class="tab-content">
+            <h2>📝 Maintenance Log & Tracker</h2>
+
+            <div class="info-box">
+                <h3>Track Your Gun's History</h3>
+                <p>Keep detailed records to optimize performance and predict maintenance needs</p>
+            </div>
+
+            <h3>Quick Status Dashboard</h3>
+            <div class="tool-box" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div style="background:rgba(0,217,255,0.1); padding:10px; border-radius:6px; text-align:center;">
+                    <strong style="color:#00d9ff;">Total Shots</strong><br>
+                    <span id="totalShots" style="font-size:1.5rem; color:#00d9ff;">0</span>
+                </div>
+                <div style="background:rgba(255,215,0,0.1); padding:10px; border-radius:6px; text-align:center;">
+                    <strong style="color:#ffd700;">Days Since Clean</strong><br>
+                    <span id="daysSinceClean" style="font-size:1.5rem; color:#ffd700;">0</span>
+                </div>
+                <div style="background:rgba(255,107,53,0.1); padding:10px; border-radius:6px; text-align:center;">
+                    <strong style="color:#ff6b35;">Last Service</strong><br>
+                    <span id="lastService" style="font-size:0.9rem; color:#ff6b35;">Never</span>
+                </div>
+                <div style="background:rgba(0,217,255,0.1); padding:10px; border-radius:6px; text-align:center;">
+                    <strong style="color:#00d9ff;">Health Status</strong><br>
+                    <span id="healthStatus" style="font-size:0.9rem; color:#00ff00;">Good</span>
+                </div>
+            </div>
+
+            <h3>Session Logger</h3>
+            <div class="step">
+                <strong>Log Today's Shooting Session:</strong>
+                <label>Date:</label>
+                <input type="date" id="sessionDate" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Shots Fired:</label>
+                <input type="number" id="sessionShots" placeholder="e.g., 50" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Average Velocity (FPS):</label>
+                <input type="number" id="sessionVelocity" placeholder="Optional" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Pressure Used (PSI):</label>
+                <input type="number" id="sessionPressure" placeholder="Optional" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Notes:</label>
+                <textarea id="sessionNotes" placeholder="Any issues, weather, pellet type, etc." style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px; min-height:60px;"></textarea>
+                
+                <button onclick="logSession()" style="width:100%; padding:12px; background:linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Save Session</button>
+            </div>
+
+            <h3>Session History</h3>
+            <div id="sessionHistory" style="margin:10px 0;"></div>
+            <button onclick="clearSessions()" style="width:100%; padding:10px; background:rgba(255,68,68,0.2); border:1px solid #ff4444; color:#ff4444; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Clear History</button>
+
+            <h3>Maintenance Events</h3>
+            <div class="component">
+                <strong>Log Maintenance Work:</strong>
+                <label>Service Type:</label>
+                <select id="serviceType" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                    <option>Barrel Cleaning</option>
+                    <option>O-ring Replacement</option>
+                    <option>Valve Rebuild</option>
+                    <option>Full Disassembly</option>
+                    <option>Spring Replacement</option>
+                    <option>Leak Repair</option>
+                    <option>Regulator Service</option>
+                    <option>General Lubrication</option>
+                    <option>Other</option>
+                </select>
+                
+                <label>Date Performed:</label>
+                <input type="date" id="serviceDate" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                
+                <label>Parts Replaced:</label>
+                <input type="text" id="partsReplaced" placeholder="e.g., Valve O-ring, Spring" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                
+                <label>Cost (PHP):</label>
+                <input type="number" id="serviceCost" placeholder="0.00" step="0.01" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px;">
+                
+                <label>Service Notes:</label>
+                <textarea id="serviceNotes" placeholder="What was fixed, improvements noticed, etc." style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #ffd700; color:#fff; border-radius:4px; min-height:60px;"></textarea>
+                
+                <button onclick="logMaintenance()" style="width:100%; padding:12px; background:linear-gradient(135deg, #ffd700 0%, #ccaa00 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Record Maintenance</button>
+            </div>
+
+            <h3>Maintenance History</h3>
+            <div id="maintenanceHistory" style="margin:10px 0;"></div>
+            <div id="maintenanceCostTotal" style="margin-top:10px; padding:10px; background:rgba(255,215,0,0.1); border-radius:6px; font-weight:bold; color:#ffd700;"></div>
+
+            <h3>Performance Trends</h3>
+            <div class="info-box">
+                <div id="performanceTrends"></div>
+            </div>
+
+            <h3>Maintenance Reminders</h3>
+            <div id="maintenanceReminders" style="margin:10px 0;"></div>
+
+            <h3>Gun Profile</h3>
+            <div class="tool-box">
+                <label>Gun Model/Name:</label>
+                <input type="text" id="gunModel" placeholder="e.g., QB78, Custom Build" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Caliber:</label>
+                <input type="text" id="gunCaliber" placeholder="e.g., .177, .22, .25" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Max Pressure Rating:</label>
+                <input type="number" id="maxPressure" placeholder="PSI" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Purchase Date:</label>
+                <input type="date" id="purchaseDate" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <label>Serial Number (Optional):</label>
+                <input type="text" id="serialNumber" placeholder="For records" style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px;">
+                
+                <button onclick="saveProfile()" style="width:100%; padding:12px; background:linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); border:none; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">Save Profile</button>
+                <div id="profileStatus" style="margin-top:10px; padding:8px; border-radius:4px;"></div>
+            </div>
+
+            <h3>Export Data</h3>
+            <div class="component">
+                <p>Save your maintenance records as text:</p>
+                <button onclick="exportData()" style="width:100%; padding:12px; background:rgba(0,217,255,0.2); border:1px solid #00d9ff; color:#00d9ff; font-weight:bold; border-radius:6px; cursor:pointer; margin:8px 0;">📄 Generate Text Report</button>
+                <textarea id="exportArea" readonly style="width:100%; padding:8px; margin:8px 0; background:rgba(0,0,0,0.3); border:1px solid #00d9ff; color:#fff; border-radius:4px; min-height:100px; display:none; font-size:0.85rem;"></textarea>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Data Storage Notice</h3>
+                <p>All maintenance logs are stored in your browser's memory. Data will be lost if you clear browser data or use a different device. Use the Export feature to save permanent records.</p>
+            </div>
+        </div>
+
+        <div id="glossary" class="tab-content">
+            <h2>📖 Technical Glossary</h2>
+
+            <div class="info-box">
+                <p>Quick reference for pneumatic pellet gun terminology</p>
+            </div>
+
+            <h3>A-D Terms</h3>
+            
+            <div class="component">
+                <strong>Accuracy:</strong> The ability to hit the intended target consistently. Measured by group size.
+            </div>
+            
+            <div class="component">
+                <strong>Airgun:</strong> Any gun that uses compressed gas instead of gunpowder to propel projectiles.
+            </div>
+
+            <div class="component">
+                <strong>Barrel Crown:</strong> The edge at the muzzle end of the barrel. Critical for accuracy - must not be damaged.
+            </div>
+
+            <div class="component">
+                <strong>Blow-by:</strong> Gas escaping past the pellet, reducing power and efficiency. Usually from poor pellet fit.
+            </div>
+
+            <div class="component">
+                <strong>Break-in Period:</strong> First 100-200 shots where seals and parts settle into optimal condition.
+            </div>
+
+            <div class="component">
+                <strong>Buna-N:</strong> Common O-ring material (nitrile rubber). Good general purpose seal material.
+            </div>
+
+            <div class="component">
+                <strong>Caliber:</strong> Diameter of the barrel/pellet. Common sizes: .177 (4.5mm), .22 (5.5mm), .25 (6.35mm)
+            </div>
+
+            <div class="component">
+                <strong>Chamber:</strong> Space behind the barrel where pellet sits before firing. Pressurized air expands here.
+            </div>
+
+            <div class="component">
+                <strong>Chronograph:</strong> Device that measures projectile velocity in feet per second (FPS) or meters per second (MPS).
+            </div>
+
+            <div class="component">
+                <strong>Consistency:</strong> How uniform shot-to-shot performance is. Key to accuracy. Measured by standard deviation.
+            </div>
+
+            <div class="component">
+                <strong>Cylinder:</strong> Pressure vessel that stores compressed gas. Also called "bottle" or "tank."
+            </div>
+
+            <div class="component">
+                <strong>Degassing:</strong> Process of releasing all pressure from the system before maintenance.
+            </div>
+
+            <div class="component">
+                <strong>Diabolo:</strong> Waisted pellet shape - wider at head and skirt, narrow in middle. Most accurate design.
+            </div>
+
+            <div class="component">
+                <strong>Durometer:</strong> Measurement of rubber hardness. Most O-rings are 70-90 durometer (Shore A scale).
+            </div>
+
+            <h3>E-L Terms</h3>
+
+            <div class="component">
+                <strong>Energy (Muzzle):</strong> Kinetic energy of pellet leaving barrel. Measured in foot-pounds (ft-lbs) or Joules.
+            </div>
+
+            <div class="component">
+                <strong>EPDM:</strong> O-ring material resistant to weather and ozone. Good for outdoor storage.
+            </div>
+
+            <div class="component">
+                <strong>Fill Pressure:</strong> Maximum pressure cylinder is filled to. Typically 2000-3000 PSI for most guns.
+            </div>
+
+            <div class="component">
+                <strong>Fill Probe/Nipple:</strong> Connection point where compressed air enters the cylinder.
+            </div>
+
+            <div class="component">
+                <strong>Firing Valve:</strong> Mechanism that releases burst of air to propel pellet. Opens when trigger pulled.
+            </div>
+
+            <div class="component">
+                <strong>FPE:</strong> Foot-Pounds of Energy. Standard measurement of muzzle energy (weight × velocity² ÷ 450240).
+            </div>
+
+            <div class="component">
+                <strong>FPS:</strong> Feet Per Second. Standard velocity measurement in US/Philippines.
+            </div>
+
+            <div class="component">
+                <strong>Grain:</strong> Weight measurement for pellets. 1 grain = 0.0648 grams. Typical range: 7-25 grains.
+            </div>
+
+            <div class="component">
+                <strong>Group Size:</strong> Diameter of circle containing all shots in test. Smaller = more accurate.
+            </div>
+
+            <div class="component">
+                <strong>Hammer:</strong> Internal part that strikes valve to open it. Spring-loaded.
+            </div>
+
+            <div class="component">
+                <strong>Joule:</strong> SI unit of energy. 1 Joule = 0.7376 ft-lbs. Used in most countries for power rating.
+            </div>
+
+            <div class="component">
+                <strong>Lands and Grooves:</strong> Raised (lands) and cut (grooves) spirals inside rifled barrel that spin pellet.
+            </div>
+
+            <div class="component">
+                <strong>Leading:</strong> Lead deposits left in barrel from pellets. Reduces accuracy if excessive.
+            </div>
+
+            <div class="component">
+                <strong>Leak:</strong> Unwanted escape of compressed gas. Can be external (audible hiss) or internal (weak power).
+            </div>
+
+            <h3>M-R Terms</h3>
+
+            <div class="component">
+                <strong>MOA:</strong> Minute of Angle. 1 MOA = ~1 inch group at 100 yards. Accuracy measurement.
+            </div>
+
+            <div class="component">
+                <strong>O-ring:</strong> Circular rubber seal that prevents gas leaks. Most critical wear item in PCP guns.
+            </div>
+
+            <div class="component">
+                <strong>PCP:</strong> Pre-Charged Pneumatic. Air gun powered by pre-compressed air in onboard cylinder.
+            </div>
+
+            <div class="component">
+                <strong>Pellet:</strong> Projectile fired from air gun. Usually lead, various shapes (diabolo, wadcutter, domed, etc.)
+            </div>
+
+            <div class="component">
+                <strong>Porting:</strong> Size/design of air passages. Larger ports = more air flow = more power (to a point).
+            </div>
+
+            <div class="component">
+                <strong>Power Curve:</strong> Graph showing velocity vs shots fired. Shows consistency and shot count.
+            </div>
+
+            <div class="component">
+                <strong>Precision:</strong> How close shots are to each other (grouping). Different from accuracy (hitting target).
+            </div>
+
+            <div class="component">
+                <strong>Pressure Drop:</strong> Amount of pressure lost per shot. Determines shot count per fill.
+            </div>
+
+            <div class="component">
+                <strong>PSI:</strong> Pounds per Square Inch. Pressure measurement. 1 PSI = 0.069 bar.
+            </div>
+
+            <div class="component">
+                <strong>Regulator:</strong> Device that maintains consistent output pressure despite falling cylinder pressure.
+            </div>
+
+            <div class="component">
+                <strong>Reservoir:</strong> Another term for pressure cylinder/tank.
+            </div>
+
+            <div class="component">
+                <strong>Rifling:</strong> Spiral grooves inside barrel that spin pellet for stability and accuracy.
+            </div>
+
+            <h3>S-Z Terms</h3>
+
+            <div class="component">
+                <strong>Seal:</strong> General term for any O-ring, gasket, or component that prevents gas leaks.
+            </div>
+
+            <div class="component">
+                <strong>Shot Count:</strong> Number of shots possible from one fill. Depends on cylinder size, pressure, and power setting.
+            </div>
+
+            <div class="component">
+                <strong>Shot String:</strong> Sequence of consecutive shots. Used to evaluate consistency.
+            </div>
+
+            <div class="component">
+                <strong>Skirt:</strong> Flared rear portion of diabolo pellet. Seals barrel and catches air blast.
+            </div>
+
+            <div class="component">
+                <strong>Standard Deviation (SD):</strong> Statistical measure of velocity consistency. Lower = better. Under 15 FPS is good.
+            </tr>
+
+            <div class="component">
+                <strong>Teflon Tape:</strong> Thread seal tape (PTFE). Wraps on threads to prevent gas leaks at fittings.
+            </div>
+
+            <div class="component">
+                <strong>Transfer Port:</strong> Hole connecting air reservoir to barrel chamber. Critical size for power.
+            </div>
+
+            <div class="component">
+                <strong>Trigger Pull:</strong> Force required to fire gun. Measured in pounds. 2-4 lbs typical for target guns.
+            </div>
+
+            <div class="component">
+                <strong>Tune:</strong> Adjust gun for optimal performance (velocity, efficiency, consistency, or accuracy).
+            </div>
+
+            <div class="component">
+                <strong>Valve Dwell:</strong> Time valve stays open. Longer = more air = more power (but less efficient).
+            </div>
+
+            <div class="component">
+                <strong>Valve Seat:</strong> Surface where valve closes. Must be smooth and undamaged for proper seal.
+            </div>
+
+            <div class="component">
+                <strong>Velocity:</strong> Speed of pellet. Usually measured at muzzle. Higher isn't always better for accuracy.
+            </div>
+
+            <div class="component">
+                <strong>Viton:</strong> Premium O-ring material (fluoroelastomer). Best for high temps and chemical resistance.
+            </div>
+
+            <div class="component">
+                <strong>Working Pressure:</strong> Pressure range where gun operates (regulator output or direct cylinder pressure).
+            </div>
+
+            <h3>Common Abbreviations</h3>
+
+            <div class="tool-box">
+                <strong>Quick Reference:</strong>
+                <ul>
+                    <li><strong>BAR:</strong> Pressure unit (1 bar = 14.5 PSI)</li>
+                    <li><strong>CC:</strong> Cubic Centimeters (cylinder volume)</li>
+                    <li><strong>CF:</strong> Carbon Fiber (material)</li>
+                    <li><strong>CNC:</strong> Computer Numerical Control (precision machining)</li>
+                    <li><strong>DOA:</strong> Dead On Arrival (non-functional from factory)</li>
+                    <li><strong>ES:</strong> Extreme Spread (highest minus lowest velocity)</li>
+                    <li><strong>HFT:</strong> Hunter Field Target (competition type)</li>
+                    <li><strong>HPA:</strong> High Pressure Air</li>
+                    <li><strong>LDC:</strong> Lead Dust Collector (suppressor/moderator)</li>
+                    <li><strong>MPA:</strong> Megapascals (pressure unit)</li>
+                    <li><strong>MPS:</strong> Meters Per Second</li>
+                    <li><strong>NIB:</strong> New In Box</li>
+                    <li><strong>OEM:</strong> Original Equipment Manufacturer</li>
+                    <li><strong>SCBA:</strong> Self-Contained Breathing Apparatus (tank type)</li>
+                    <li><strong>TOTW:</strong> Tin Of The Week (pellet testing)</li>
+                    <li><strong>WTB/WTS:</strong> Want To Buy / Want To Sell</li>
+                </ul>
+            </div>
+
+            <h3>Tagalog/Filipino Translations</h3>
+
+            <div class="info-box">
+                <strong>Common Terms in Filipino:</strong>
+                <ul>
+                    <li><strong>Airgun:</strong> Baril hangin</li>
+                    <li><strong>Pellet:</strong> Bala/Putok</li>
+                    <li><strong>Barrel:</strong> Kanyon/Tubo</li>
+                    <li><strong>Leak:</strong> Tagas/Tulo</li>
+                    <li><strong>Pressure:</strong> Presyon</li>
+                    <li><strong>Cylinder:</strong> Tangke/Silindro</li>
+                    <li><strong>Trigger:</strong> Gatilyo</li>
+                    <li><strong>Accuracy:</strong> Tumpak/Eksakto</li>
+                    <li><strong>Power:</strong> Lakas</li>
+                    <li><strong>Repair:</strong> Ayusin/Kumpuni</li>
+                    <li><strong>Maintenance:</strong> Pagpapanatili</li>
+                    <li><strong>Safety:</strong> Kaligtasan</li>
+                </ul>
+            </div>
+
+            <div class="component">
+                <p><strong>Tip:</strong> Understanding these terms helps when reading manuals, watching videos, or discussing with other airgunners!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Velocity Calculator
+        function calculateVelocity() {
+            const pressure = parseFloat(document.getElementById('pressureInput').value);
+            const weight = parseFloat(document.getElementById('pelletWeight').value);
+            
+            // Simplified formula: velocity estimation
+            const velocity = Math.sqrt((pressure / 1000) * 450000 / weight);
+            const velocityFPS = Math.round(velocity);
+            
+            const resultDiv = document.getElementById('velocityResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <strong>Estimated Velocity:</strong> ${velocityFPS} FPS<br>
+                <small>Note: Actual velocity depends on barrel length, valve efficiency, and pellet fit</small>
+            `;
+        }
+
+        // Shots Calculator
+        function calculateShots() {
+            const volume = parseFloat(document.getElementById('cylinderVolume').value);
+            const fillPSI = parseFloat(document.getElementById('fillPressure').value);
+            const shotPSI = parseFloat(document.getElementById('shotPressure').value);
+            
+            // Simplified calculation
+            const usablePressure = fillPSI - shotPSI;
+            const shots = Math.round((volume * usablePressure) / (shotPSI * 0.5));
+            
+            const resultDiv = document.getElementById('shotsResult');
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = `
+                <strong>Estimated Shots:</strong> ${shots} shots<br>
+                <strong>Per Shot Pressure Drop:</strong> ~${Math.round((fillPSI - shotPSI) / shots)} PSI<br>
+                <small>Estimates vary with regulator type and valve efficiency</small>
+            `;
+        }
+
+        // Energy Calculator
+        function calculateEnergy() {
+            const velocity = parseFloat(document.getElementById('velocityFPS').value);
+            const weight = parseFloat(document.getElementById('energyWeight').value);
+            
+            const energy = (weight * velocity * velocity) / 450240;
+            const joules = energy * 1.356;
+            
+            const resultDiv = document.getElementById('energyResult');
+            resultDiv.style.display = 'block';
+            
+            let powerClass = '';
+            if (energy < 12) powerClass = 'Low Power (Target)';
+            else if (energy < 20) powerClass = 'Medium Power (Pest Control)';
+            else if (energy < 30) powerClass = 'High Power (Small Game)';
+            else powerClass = 'Very High Power';
+            
+            resultDiv.innerHTML = `
+                <strong>Muzzle Energy:</strong> ${energy.toFixed(2)} ft-lbs (${joules.toFixed(2)} Joules)<br>
+                <strong>Power Class:</strong> ${powerClass}<br>
+                <small>Legal limits vary by location - check local regulations</small>
+            `;
+        }
+
+        // Maintenance Tracker
+        let shotCounter = 0;
+        function addShots(amount) {
+            shotCounter += amount;
+            document.getElementById('shotCount').value = shotCounter;
+            checkMaintenance();
+        }
+
+        function resetShots() {
+            shotCounter = 0;
+            document.getElementById('shotCount').value = 0;
+            checkMaintenance();
+        }
+
+        function checkMaintenance() {
+            const alertDiv = document.getElementById('maintenanceAlert');
+            
+            if (shotCounter >= 500) {
+                alertDiv.style.background = 'rgba(255,68,68,0.2)';
+                alertDiv.style.border = '1px solid #ff4444';
+                alertDiv.innerHTML = '<strong>⚠️ MAINTENANCE DUE!</strong><br>Clean barrel and inspect seals';
+            } else if (shotCounter >= 300) {
+                alertDiv.style.background = 'rgba(255,215,0,0.2)';
+                alertDiv.style.border = '1px solid #ffd700';
+                alertDiv.innerHTML = '<strong>⚡ Maintenance Soon</strong><br>Plan for cleaning at 500 shots';
+            } else {
+                alertDiv.style.background = 'rgba(0,217,255,0.1)';
+                alertDiv.style.border = '1px solid #00d9ff';
+                alertDiv.innerHTML = `<strong>✓ Good Condition</strong><br>${500 - shotCounter} shots until maintenance`;
+            }
+        }
+
+        // Cost Tracker
+        let costs = [];
+        function addCost() {
+            const item = document.getElementById('costItem').value;
+            const amount = parseFloat(document.getElementById('costAmount').value);
+            
+            if (item && amount) {
+                costs.push({item, amount});
+                updateCostDisplay();
+                document.getElementById('costItem').value = '';
+                document.getElementById('costAmount').value = '';
+            }
+        }
+
+        function updateCostDisplay() {
+            const listDiv = document.getElementById('costList');
+            const totalDiv = document.getElementById('totalCost');
+            
+            let html = '';
+            let total = 0;
+            
+            costs.forEach((cost, index) => {
+                total += cost.amount;
+                html += `
+                    <div style="background:rgba(0,0,0,0.3); padding:8px; margin:4px 0; border-radius:4px; display:flex; justify-content:space-between;">
+                        <span>${cost.item}</span>
+                        <span style="color:#ffd700;">₱${cost.amount.toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            
+            listDiv.innerHTML = html;
+            totalDiv.innerHTML = `Total Expenses: ₱${total.toFixed(2)}`;
+        }
+
+        function clearCosts() {
+            costs = [];
+            updateCostDisplay();
+        }
+
+        // Initialize
+        checkMaintenance();
+
+        // Maintenance Log Functions
+        let sessions = [];
+        let maintenanceLog = [];
+        let gunProfile = {};
+
+        function logSession() {
+            const date = document.getElementById('sessionDate').value;
+            const shots = parseInt(document.getElementById('sessionShots').value) || 0;
+            const velocity = document.getElementById('sessionVelocity').value;
+            const pressure = document.getElementById('sessionPressure').value;
+            const notes = document.getElementById('sessionNotes').value;
+
+            if (date && shots > 0) {
+                sessions.push({
+                    date,
+                    shots,
+                    velocity: velocity || 'N/A',
+                    pressure: pressure || 'N/A',
+                    notes: notes || 'None'
+                });
+                
+                updateSessionDisplay();
+                updateDashboard();
+                
+                // Clear form
+                document.getElementById('sessionShots').value = '';
+                document.getElementById('sessionVelocity').value = '';
+                document.getElementById('sessionPressure').value = '';
+                document.getElementById('sessionNotes').value = '';
+            }
+        }
+
+        function updateSessionDisplay() {
+            const historyDiv = document.getElementById('sessionHistory');
+            let html = '';
+            
+            sessions.slice().reverse().forEach((session, index) => {
+                html += `
+                    <div style="background:rgba(0,0,0,0.3); padding:10px; margin:5px 0; border-radius:6px; border-left:3px solid #00d9ff;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <strong style="color:#00d9ff;">${session.date}</strong>
+                            <span style="color:#ffd700;">${session.shots} shots</span>
+                        </div>
+                        ${session.velocity !== 'N/A' ? `<div>Velocity: ${session.velocity} FPS</div>` : ''}
+                        ${session.pressure !== 'N/A' ? `<div>Pressure: ${session.pressure} PSI</div>` : ''}
+                        ${session.notes !== 'None' ? `<div style="font-style:italic; margin-top:5px;">${session.notes}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            historyDiv.innerHTML = html || '<p style="color:#888;">No sessions logged yet</p>';
+        }
+
+        function clearSessions() {
+            if (confirm('Clear all session history?')) {
+                sessions = [];
+                updateSessionDisplay();
+                updateDashboard();
+            }
+        }
+
+        function logMaintenance() {
+            const type = document.getElementById('serviceType').value;
+            const date = document.getElementById('serviceDate').value;
+            const parts = document.getElementById('partsReplaced').value;
+            const cost = parseFloat(document.getElementById('serviceCost').value) || 0;
+            const notes = document.getElementById('serviceNotes').value;
+
+            if (date) {
+                maintenanceLog.push({
+                    type,
+                    date,
+                    parts: parts || 'None',
+                    cost,
+                    notes: notes || 'None'
+                });
+                
+                updateMaintenanceDisplay();
+                updateDashboard();
+                
+                // Clear form
+                document.getElementById('partsReplaced').value = '';
+                document.getElementById('serviceCost').value = '';
+                document.getElementById('serviceNotes').value = '';
+            }
+        }
+
+        function updateMaintenanceDisplay() {
+            const historyDiv = document.getElementById('maintenanceHistory');
+            const costDiv = document.getElementById('maintenanceCostTotal');
+            let html = '';
+            let totalCost = 0;
+            
+            maintenanceLog.slice().reverse().forEach((service) => {
+                totalCost += service.cost;
+                html += `
+                    <div style="background:rgba(0,0,0,0.3); padding:10px; margin:5px 0; border-radius:6px; border-left:3px solid #ffd700;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                            <strong style="color:#ffd700;">${service.type}</strong>
+                            <span style="color:#00d9ff;">${service.date}</span>
+                        </div>
+                        ${service.parts !== 'None' ? `<div>Parts: ${service.parts}</div>` : ''}
+                        ${service.cost > 0 ? `<div style="color:#ff6b35;">Cost: ₱${service.cost.toFixed(2)}</div>` : ''}
+                        ${service.notes !== 'None' ? `<div style="font-style:italic; margin-top:5px;">${service.notes}</div>` : ''}
+                    </div>
+                `;
+            });
+            
+            historyDiv.innerHTML = html || '<p style="color:#888;">No maintenance logged yet</p>';
+            costDiv.innerHTML = `Total Maintenance Cost: ₱${totalCost.toFixed(2)}`;
+        }
+
+        function updateDashboard() {
+            // Total shots
+            const totalShots = sessions.reduce((sum, s) => sum + s.shots, 0);
+            document.getElementById('totalShots').textContent = totalShots;
+            
+            // Days since clean
+            const lastClean = maintenanceLog
+                .filter(m => m.type === 'Barrel Cleaning' || m.type === 'Full Disassembly')
+                .sort((a, b) => new Date(b.date) - new Date(a.date))[0];
+            
+            if (lastClean) {
+                const daysSince = Math.floor((new Date() - new Date(lastClean.date)) / (1000 * 60 * 60 * 24));
+                document.getElementById('daysSinceClean').textContent = daysSince;
+            } else {
+                document.getElementById('daysSinceClean').textContent = '∞';
+            }
+            
+            // Last service
+            if (maintenanceLog.length > 0) {
+                const lastService = maintenanceLog[maintenanceLog.length - 1];
+                document.getElementById('lastService').textContent = `${lastService.type} (${lastService.date})`;
+            }
+            
+            // Health status
+            let status = 'Good';
+            let color = '#00ff00';
+            if (totalShots > 500) {
+                status = 'Cleaning Due';
+                color = '#ffd700';
+            }
+            if (totalShots > 1000) {
+                status = 'Service Needed';
+                color = '#ff4444';
+            }
+            document.getElementById('healthStatus').textContent = status;
+            document.getElementById('healthStatus').style.color = color;
+            
+            // Performance trends
+            updatePerformanceTrends();
+            updateReminders();
+        }
+
+        function updatePerformanceTrends() {
+            const trendsDiv = document.getElementById('performanceTrends');
+            
+            if (sessions.length < 3) {
+                trendsDiv.innerHTML = '<p style="color:#888;">Log more sessions to see trends</p>';
+                return;
+            }
+            
+            const recentSessions = sessions.slice(-5);
+            const avgVelocities = recentSessions
+                .filter(s => s.velocity !== 'N/A')
+                .map(s => parseFloat(s.velocity));
+            
+            if (avgVelocities.length > 1) {
+                const trend = avgVelocities[avgVelocities.length - 1] - avgVelocities[0];
+                const trendText = trend > 0 ? 'increasing' : trend < 0 ? 'decreasing' : 'stable';
+                const trendColor = trend > 0 ? '#00ff00' : trend < 0 ? '#ff4444' : '#00d9ff';
+                
+                trendsDiv.innerHTML = `
+                    <strong>Recent Performance:</strong><br>
+                    Velocity trend: <span style="color:${trendColor}">${trendText}</span> (${Math.abs(trend).toFixed(1)} FPS)<br>
+                    ${trend < -20 ? '<span style="color:#ff4444;">⚠️ Significant drop detected - check seals</span>' : ''}
+                `;
+            } else {
+                trendsDiv.innerHTML = '<p>Log velocity data to track performance trends</p>';
+            }
+        }
+
+        function updateReminders() {
+            const remindersDiv = document.getElementById('maintenanceReminders');
+            const totalShots = sessions.reduce((sum, s) => sum + s.shots, 0);
+            let reminders = [];
+            
+            if (totalShots >= 500) {
+                reminders.push({text: 'Clean barrel and inspect seals', priority: 'high'});
+            } else if (totalShots >= 300) {
+                reminders.push({text: 'Barrel cleaning recommended soon', priority: 'medium'});
+            }
+            
+            const lastMaintenance = maintenanceLog.length > 0 ? 
+                new Date(maintenanceLog[maintenanceLog.length - 1].date) : null;
+            
+            if (lastMaintenance) {
+                const daysSince = Math.floor((new Date() - lastMaintenance) / (1000 * 60 * 60 * 24));
+                if (daysSince > 180) {
+                    reminders.push({text: 'Full service recommended (6+ months)', priority: 'medium'});
+                }
+            }
+            
+            if (reminders.length === 0) {
+                remindersDiv.innerHTML = '<div style="background:rgba(0,255,0,0.1); padding:10px; border-radius:6px; border-left:3px solid #00ff00;"><strong>✓ No maintenance due</strong><br>Keep logging sessions!</div>';
+            } else {
+                let html = '';
+                reminders.forEach(r => {
+                    const color = r.priority === 'high' ? '#ff4444' : '#ffd700';
+                    html += `<div style="background:rgba(255,68,68,0.1); padding:10px; margin:5px 0; border-radius:6px; border-left:3px solid ${color};"><strong>⚠️ ${r.text}</strong></div>`;
+                });
+                remindersDiv.innerHTML = html;
+            }
+        }
+
+        function saveProfile() {
+            gunProfile = {
+                model: document.getElementById('gunModel').value,
+                caliber: document.getElementById('gunCaliber').value,
+                maxPressure: document.getElementById('maxPressure').value,
+                purchaseDate: document.getElementById('purchaseDate').value,
+                serialNumber: document.getElementById('serialNumber').value
+            };
+            
+            const statusDiv = document.getElementById('profileStatus');
+            statusDiv.style.background = 'rgba(0,255,0,0.2)';
+            statusDiv.style.border = '1px solid #00ff00';
+            statusDiv.style.color = '#00ff00';
+            statusDiv.innerHTML = '✓ Profile saved successfully!';
+            
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 3000);
+            statusDiv.style.display = 'block';
+        }
+
+        function exportData() {
+            const exportArea = document.getElementById('exportArea');
+            let report = '=== PNEUMATIC PELLET GUN MAINTENANCE REPORT ===\n\n';
+            
+            if (gunProfile.model) {
+                report += '--- GUN PROFILE ---\n';
+                report += `Model: ${gunProfile.model || 'N/A'}\n`;
+                report += `Caliber: ${gunProfile.caliber || 'N/A'}\n`;
+                report += `Max Pressure: ${gunProfile.maxPressure || 'N/A'} PSI\n`;
+                report += `Purchase Date: ${gunProfile.purchaseDate || 'N/A'}\n`;
+                report += `Serial: ${gunProfile.serialNumber || 'N/A'}\n\n`;
+            }
+            
+            const totalShots = sessions.reduce((sum, s) => sum + s.shots, 0);
+            report += '--- SUMMARY ---\n';
+            report += `Total Shots Fired: ${totalShots}\n`;
+            report += `Total Sessions: ${sessions.length}\n`;
+            report += `Maintenance Events: ${maintenanceLog.length}\n`;
+            report += `Total Maintenance Cost: ₱${maintenanceLog.reduce((sum, m) => sum + m.cost, 0).toFixed(2)}\n\n`;
+            
+            if (sessions.length > 0) {
+                report += '--- SHOOTING SESSIONS ---\n';
+                sessions.forEach(s => {
+                    report += `\n${s.date} - ${s.shots} shots\n`;
+                    if (s.velocity !== 'N/A') report += `  Velocity: ${s.velocity} FPS\n`;
+                    if (s.pressure !== 'N/A') report += `  Pressure: ${s.pressure} PSI\n`;
+                    if (s.notes !== 'None') report += `  Notes: ${s.notes}\n`;
+                });
+                report += '\n';
+            }
+            
+            if (maintenanceLog.length > 0) {
+                report += '--- MAINTENANCE HISTORY ---\n';
+                maintenanceLog.forEach(m => {
+                    report += `\n${m.date} - ${m.type}\n`;
+                    if (m.parts !== 'None') report += `  Parts: ${m.parts}\n`;
+                    if (m.cost > 0) report += `  Cost: ₱${m.cost.toFixed(2)}\n`;
+                    if (m.notes !== 'None') report += `  Notes: ${m.notes}\n`;
+                });
+            }
+            
+            report += '\n\n=== END OF REPORT ===\n';
+            report += `Generated: ${new Date().toLocaleString()}\n`;
+            
+            exportArea.value = report;
+            exportArea.style.display = 'block';
+            exportArea.select();
+        }
+
+        // Initialize dashboard on load
+        updateDashboard();
+    </script>
+</body>
+</html>
